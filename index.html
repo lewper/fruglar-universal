@@ -1315,11 +1315,11 @@
             return `
                 <div class="card calculator-section">
                     <div class="card-header">
-                        <h2 class="card-title">🧮 Vacation Package Calculator</h2>
+                        <h2 class="card-title">🧮 Vacation Package Builder</h2>
                         ${!isPremium ? `<span class="tip-badge premium" style="cursor: pointer;" onclick="showPremiumModal()">⭐ Unlock Advanced Calculator</span>` : ''}
                     </div>
                     
-                    <!-- Basic Inputs (Always Visible) -->
+                    <!-- Trip Details -->
                     <div class="calculator-grid">
                         <div class="input-group">
                             <label>Check-In Date</label>
@@ -1330,140 +1330,208 @@
                             <input type="date" id="checkOut" onchange="calculatePackage()">
                         </div>
                         <div class="input-group">
-                            <label>Hotel Type</label>
-                            <select id="hotelType" onchange="calculatePackage()">
-                                <option value="159">Cabana Bay (Value) - $159/night</option>
-                                <option value="289">Sapphire Falls (Preferred) - $289/night</option>
-                                <option value="429">Hard Rock (Premier) - $429/night</option>
-                            </select>
+                            <label>Number of Adults</label>
+                            <input type="number" id="adults" value="2" min="1" max="10" onchange="calculatePackage()">
                         </div>
                         <div class="input-group">
-                            <label>Ticket Type</label>
-                            <select id="ticketType" onchange="calculatePackage()">
-                                <option value="349">2-Day Park-to-Park - $349</option>
-                                <option value="379">3-Day Park-to-Park - $379</option>
-                                <option value="304">Seasonal Pass - $304</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label>Number of Guests</label>
-                            <input type="number" id="guests" value="2" min="1" max="10" onchange="calculatePackage()">
-                        </div>
-                        <div class="input-group">
-                            <label>Car Rental Needed?</label>
-                            <select id="carRental" onchange="calculatePackage()">
-                                <option value="0">No (Using rideshare/shuttle)</option>
-                                <option value="245">Economy - $245/week</option>
-                                <option value="385">Mid-Size SUV - $385/week</option>
-                            </select>
+                            <label>Number of Children (3-9)</label>
+                            <input type="number" id="children" value="0" min="0" max="10" onchange="calculatePackage()">
                         </div>
                     </div>
 
                     ${isPremium ? `
-                        <!-- Premium Advanced Options -->
-                        <div style="border-top: 3px solid #667eea; margin-top: 2rem; padding-top: 2rem;">
-                            <h3 style="font-family: 'Archivo Black', sans-serif; color: #667eea; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                                ⭐ Advanced Options
+                        <!-- Premium Checklist System -->
+                        <div style="margin-top: 2rem;">
+                            <h3 style="font-family: 'Archivo Black', sans-serif; color: var(--primary); margin-bottom: 1rem;">
+                                Select Your Vacation Components
                             </h3>
-                            <div class="calculator-grid">
-                                <div class="input-group">
-                                    <label>Passholder Discount</label>
-                                    <select id="passholder" onchange="calculatePackage()">
-                                        <option value="no">No Pass</option>
-                                        <option value="seasonal">Seasonal Pass (40% hotels + 15% food)</option>
-                                        <option value="power">Power Pass (30% hotels + 10% food)</option>
-                                    </select>
+                            
+                            <!-- Hotels Section -->
+                            <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🏨 Accommodations</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px; transition: all 0.2s;">
+                                        <input type="checkbox" id="needsHotel" onchange="calculatePackage()" checked>
+                                        <span style="font-weight: 600;">I need a hotel</span>
+                                    </label>
+                                    <div id="hotelOptions" style="margin-left: 2rem; display: grid; gap: 0.5rem;">
+                                        <select id="hotelType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="">Select Hotel...</option>
+                                            <optgroup label="Value Inn & Suites">
+                                                <option value="99">Endless Summer Surfside - From $99/night</option>
+                                                <option value="99">Endless Summer Dockside - From $99/night</option>
+                                            </optgroup>
+                                            <optgroup label="Prime Value">
+                                                <option value="145">Cabana Bay Beach Resort - From $145/night</option>
+                                                <option value="145">Aventura Hotel - From $145/night</option>
+                                                <option value="134">Stella Nova Resort - From $134/night</option>
+                                                <option value="134">Terra Luna Resort - From $134/night</option>
+                                            </optgroup>
+                                            <optgroup label="Signature Collection (Preferred)">
+                                                <option value="222">Sapphire Falls Resort - From $222/night</option>
+                                            </optgroup>
+                                            <optgroup label="Signature Collection (Premier - FREE Express Pass)">
+                                                <option value="421">Royal Pacific Resort - From $421/night</option>
+                                                <option value="386">Hard Rock Hotel - From $386/night</option>
+                                                <option value="393">Portofino Bay Hotel - From $393/night</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <label>Express Pass</label>
-                                    <select id="expressPass" onchange="calculatePackage()">
-                                        <option value="0">None (Included w/ Premier hotels)</option>
-                                        <option value="119">Unlimited Express - $119/person/day</option>
-                                        <option value="149">Unlimited Express After 4pm - $79/person/day</option>
-                                    </select>
+                            </div>
+
+                            <!-- Annual Pass Section -->
+                            <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🎫 Tickets & Annual Passes</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="radio" name="ticketType" value="none" onchange="calculatePackage()">
+                                        <span>No tickets needed (I already have them)</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="radio" name="ticketType" value="tickets" onchange="calculatePackage(); toggleTicketOptions()" checked>
+                                        <span style="font-weight: 600;">Buy Day Tickets</span>
+                                    </label>
+                                    <div id="ticketOptions" style="margin-left: 2rem; display: grid; gap: 0.5rem;">
+                                        <select id="dayTickets" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="349">2-Day Park-to-Park - $349</option>
+                                            <option value="379">3-Day Park-to-Park - $379</option>
+                                            <option value="409">4-Day Park-to-Park - $409</option>
+                                            <option value="435">5-Day Park-to-Park - $435</option>
+                                        </select>
+                                    </div>
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="radio" name="ticketType" value="annual" onchange="calculatePackage(); toggleAnnualPassOptions()">
+                                        <span style="font-weight: 600;">Buy Annual Passes (40% hotel discount!)</span>
+                                    </label>
+                                    <div id="annualPassOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
+                                        <select id="annualPass" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="">Select Pass Type...</option>
+                                            <optgroup label="Out-of-State Prices">
+                                                <option value="424.99|seasonal|0|0">Seasonal 2-Park - $424.99 (40% hotels)</option>
+                                                <option value="524.99|seasonal|40|15">Seasonal 3-Park - $524.99 (40% hotels + 15% food)</option>
+                                                <option value="474.99|power|0|0">Power 2-Park - $474.99 (30% hotels)</option>
+                                                <option value="584.99|power|30|10">Power 3-Park - $584.99 (30% hotels + 10% food)</option>
+                                                <option value="629.99|preferred|0|0">Preferred 2-Park - $629.99 (10% in-park)</option>
+                                                <option value="739.99|preferred|0|10">Preferred 3-Park - $739.99 (10% in-park + food)</option>
+                                                <option value="904.99|premier|0|0">Premier 2-Park - $904.99 (15% + Free Express 4pm+)</option>
+                                                <option value="1094.99|premier|0|15">Premier 3-Park - $1,094.99 (15% + Free Express 4pm+)</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <label>Parking Strategy</label>
-                                    <select id="parking" onchange="calculatePackage()">
-                                        <option value="0">Included (Hotel guest parking)</option>
-                                        <option value="30">Standard Parking - $30/day</option>
-                                        <option value="60">Preferred Parking - $60/day</option>
-                                        <option value="100">Prime Parking - $100/day</option>
-                                    </select>
+                            </div>
+
+                            <!-- Express Pass Section -->
+                            <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">⚡ Express Pass (Skip the Lines)</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="checkbox" id="needsExpress" onchange="calculatePackage(); toggleExpressOptions()">
+                                        <span style="font-weight: 600;">Add Express Pass</span>
+                                    </label>
+                                    <div id="expressOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
+                                        <select id="expressType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="119">Unlimited Express - ~$119/person/day</option>
+                                            <option value="79">Express After 4pm - ~$79/person/day</option>
+                                        </select>
+                                        <div style="background: #fff3cd; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;">
+                                            💡 Premier hotels include FREE Unlimited Express Pass!
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <label>Meals Per Day (per person)</label>
-                                    <select id="meals" onchange="calculatePackage()">
-                                        <option value="0">Bringing own food</option>
-                                        <option value="35">1 Meal - ~$35/person/day</option>
-                                        <option value="70">2 Meals - ~$70/person/day</option>
-                                        <option value="105">3 Meals - ~$105/person/day</option>
-                                    </select>
+                            </div>
+
+                            <!-- Parking Section -->
+                            <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🚗 Parking & Transportation</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="checkbox" id="needsParking" onchange="calculatePackage(); toggleParkingOptions()">
+                                        <span style="font-weight: 600;">I need parking</span>
+                                    </label>
+                                    <div id="parkingOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
+                                        <select id="parkingType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="30">Standard Parking - $30/day</option>
+                                            <option value="60">Preferred Parking - $60/day</option>
+                                            <option value="100">Prime Parking - $100/day</option>
+                                        </select>
+                                        <div style="background: #e3f2fd; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;">
+                                            💡 Hotel guests get free self-parking. Arrive after 2pm for 50% off!
+                                        </div>
+                                    </div>
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="checkbox" id="needsCarRental" onchange="calculatePackage(); toggleCarRentalOptions()">
+                                        <span style="font-weight: 600;">I need a rental car</span>
+                                    </label>
+                                    <div id="carRentalOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
+                                        <select id="carRentalType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="245">Economy - $245/week</option>
+                                            <option value="315">Mid-Size - $315/week</option>
+                                            <option value="385">SUV - $385/week</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <label>Souvenirs Budget</label>
-                                    <select id="souvenirs" onchange="calculatePackage()">
-                                        <option value="0">None</option>
-                                        <option value="50">Modest - $50/person</option>
-                                        <option value="150">Moderate - $150/person</option>
-                                        <option value="300">Generous - $300/person</option>
-                                    </select>
+                            </div>
+
+                            <!-- Meals Section -->
+                            <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🍔 Meals & Dining</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="checkbox" id="needsMeals" onchange="calculatePackage(); toggleMealOptions()">
+                                        <span style="font-weight: 600;">Budget for meals at the parks</span>
+                                    </label>
+                                    <div id="mealOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
+                                        <select id="mealsPerDay" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="35">1 Meal per person/day - ~$35</option>
+                                            <option value="70">2 Meals per person/day - ~$70</option>
+                                            <option value="105">3 Meals per person/day - ~$105</option>
+                                        </select>
+                                        <div style="background: #e8f5e9; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;">
+                                            💡 Seasonal/Power passes get 10-15% off food!
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <label>Special Add-Ons</label>
-                                    <select id="addons" onchange="calculatePackage()">
-                                        <option value="0">None</option>
-                                        <option value="80">Blue Man Group - $80/person</option>
-                                        <option value="95">VIP Tour (split cost) - $400/group</option>
-                                        <option value="45">Character Dining - $45/person</option>
-                                    </select>
+                            </div>
+
+                            <!-- Extras Section -->
+                            <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🎁 Extras & Add-Ons</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
+                                        <input type="checkbox" id="needsSouvenirs" onchange="calculatePackage(); toggleSouvenirOptions()">
+                                        <span style="font-weight: 600;">Souvenirs & Shopping</span>
+                                    </label>
+                                    <div id="souvenirOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
+                                        <select id="souvenirBudget" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                            <option value="50">Modest - $50/person</option>
+                                            <option value="150">Moderate - $150/person</option>
+                                            <option value="300">Generous - $300/person</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     ` : `
-                        <!-- Premium Teaser -->
-                        <div style="border-top: 3px dashed #667eea; margin-top: 2rem; padding-top: 2rem; text-align: center; opacity: 0.6; position: relative;">
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
-                                <button class="btn btn-premium" onclick="showPremiumModal()">
-                                    🔒 Unlock Advanced Calculator
-                                </button>
-                            </div>
-                            <div style="filter: blur(5px); pointer-events: none;">
-                                <h3 style="font-family: 'Archivo Black', sans-serif; color: #667eea; margin-bottom: 1rem;">Advanced Options (Premium)</h3>
-                                <div class="calculator-grid">
-                                    <div class="input-group">
-                                        <label>Passholder Discounts</label>
-                                        <select disabled><option>Seasonal Pass (40% hotels)</option></select>
-                                    </div>
-                                    <div class="input-group">
-                                        <label>Express Pass</label>
-                                        <select disabled><option>Unlimited Express</option></select>
-                                    </div>
-                                    <div class="input-group">
-                                        <label>Parking</label>
-                                        <select disabled><option>Standard Parking</option></select>
-                                    </div>
-                                    <div class="input-group">
-                                        <label>Meals Per Day</label>
-                                        <select disabled><option>2 Meals/day</option></select>
-                                    </div>
-                                    <div class="input-group">
-                                        <label>Souvenirs</label>
-                                        <select disabled><option>Moderate Budget</option></select>
-                                    </div>
-                                    <div class="input-group">
-                                        <label>Add-Ons</label>
-                                        <select disabled><option>Blue Man Group</option></select>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- Free Tier - Limited Options -->
+                        <div style="margin-top: 2rem; padding: 2rem; border: 3px dashed #667eea; border-radius: 12px; text-align: center; background: linear-gradient(135deg, #667eea10, #764ba210);">
+                            <h3 style="font-family: 'Archivo Black', sans-serif; color: #667eea; margin-bottom: 1rem;">
+                                🔒 Unlock the Interactive Package Builder
+                            </h3>
+                            <p style="color: var(--gray); margin-bottom: 1.5rem;">
+                                Premium members get our interactive checklist calculator that automatically applies discounts, calculates savings, and shows you ALL the money-saving hacks for your specific trip.
+                            </p>
+                            <button class="btn btn-premium" onclick="showPremiumModal()">
+                                Upgrade to Premium - $7.99/month
+                            </button>
                         </div>
                     `}
 
                     <div class="result-box" id="calculatorResult" style="margin-top: 2rem;">
                         <h3>Total Package Price</h3>
                         <div class="big-price">$0</div>
-                        <div class="savings">Configure options above</div>
+                        <div class="savings">Select options above to calculate</div>
                     </div>
 
                     ${isPremium ? `
@@ -1481,6 +1549,43 @@
                     ` : ''}
                 </div>
             `;
+        }
+
+        function toggleTicketOptions() {
+            const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
+            document.getElementById('ticketOptions').style.display = ticketType === 'tickets' ? 'grid' : 'none';
+            document.getElementById('annualPassOptions').style.display = 'none';
+        }
+
+        function toggleAnnualPassOptions() {
+            const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
+            document.getElementById('annualPassOptions').style.display = ticketType === 'annual' ? 'grid' : 'none';
+            document.getElementById('ticketOptions').style.display = 'none';
+        }
+
+        function toggleExpressOptions() {
+            const needsExpress = document.getElementById('needsExpress').checked;
+            document.getElementById('expressOptions').style.display = needsExpress ? 'grid' : 'none';
+        }
+
+        function toggleParkingOptions() {
+            const needsParking = document.getElementById('needsParking').checked;
+            document.getElementById('parkingOptions').style.display = needsParking ? 'grid' : 'none';
+        }
+
+        function toggleCarRentalOptions() {
+            const needsCarRental = document.getElementById('needsCarRental').checked;
+            document.getElementById('carRentalOptions').style.display = needsCarRental ? 'grid' : 'none';
+        }
+
+        function toggleMealOptions() {
+            const needsMeals = document.getElementById('needsMeals').checked;
+            document.getElementById('mealOptions').style.display = needsMeals ? 'grid' : 'none';
+        }
+
+        function toggleSouvenirOptions() {
+            const needsSouvenirs = document.getElementById('needsSouvenirs').checked;
+            document.getElementById('souvenirOptions').style.display = needsSouvenirs ? 'grid' : 'none';
         }
 
         function renderInsiderTips() {
@@ -1536,123 +1641,239 @@
         }
 
         function calculatePackage() {
+            if (!appState.isPremium) {
+                // Free tier - no calculation
+                return;
+            }
+
             const checkIn = document.getElementById('checkIn').value;
             const checkOut = document.getElementById('checkOut').value;
-            const hotelPrice = parseFloat(document.getElementById('hotelType').value);
-            const ticketPrice = parseFloat(document.getElementById('ticketType').value);
-            const guests = parseInt(document.getElementById('guests').value);
-            const carRental = parseFloat(document.getElementById('carRental').value);
+            const adults = parseInt(document.getElementById('adults').value);
+            const children = parseInt(document.getElementById('children').value);
+            const totalGuests = adults + children;
 
             if (!checkIn || !checkOut) return;
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-            const parkDays = Math.min(nights, 7); // Assume max 7 park days
+            const parkDays = Math.min(nights, 7);
             
             let totalCost = 0;
             let standardCost = 0;
             let savingsTips = [];
             
             // HOTELS
-            let hotelTotal = hotelPrice * nights;
+            const needsHotel = document.getElementById('needsHotel')?.checked;
+            let hotelPrice = 0;
             let hotelDiscount = 0;
-            standardCost += hotelPrice * nights;
+            let annualPassHotelDiscount = 0;
             
-            if (appState.isPremium) {
-                const passholder = document.getElementById('passholder').value;
-                if (passholder === 'seasonal') {
-                    hotelDiscount = hotelTotal * 0.40;
-                    hotelTotal *= 0.60;
-                    savingsTips.push({ tip: 'Seasonal Pass hotel discount', savings: hotelDiscount });
-                } else if (passholder === 'power') {
-                    hotelDiscount = hotelTotal * 0.30;
-                    hotelTotal *= 0.70;
-                    savingsTips.push({ tip: 'Power Pass hotel discount', savings: hotelDiscount });
+            if (needsHotel) {
+                const hotelSelect = document.getElementById('hotelType');
+                if (hotelSelect.value) {
+                    hotelPrice = parseFloat(hotelSelect.value);
+                    let hotelTotal = hotelPrice * nights;
+                    standardCost += hotelTotal;
+                    
+                    // Check for annual pass discount
+                    const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+                    if (ticketType === 'annual') {
+                        const annualPassSelect = document.getElementById('annualPass');
+                        if (annualPassSelect.value) {
+                            const passData = annualPassSelect.value.split('|');
+                            const passType = passData[1];
+                            
+                            // Apply hotel discount based on pass type
+                            if (passType === 'seasonal') {
+                                annualPassHotelDiscount = hotelTotal * 0.40;
+                                hotelTotal *= 0.60;
+                                savingsTips.push({ 
+                                    tip: '🎫 Seasonal Pass: 40% hotel discount', 
+                                    savings: annualPassHotelDiscount,
+                                    isHack: true 
+                                });
+                            } else if (passType === 'power') {
+                                annualPassHotelDiscount = hotelTotal * 0.30;
+                                hotelTotal *= 0.70;
+                                savingsTips.push({ 
+                                    tip: '🎫 Power Pass: 30% hotel discount', 
+                                    savings: annualPassHotelDiscount 
+                                });
+                            }
+                        }
+                    }
+                    
+                    totalCost += hotelTotal;
                 }
             }
-            totalCost += hotelTotal;
 
-            // TICKETS
-            const ticketTotal = ticketPrice * guests;
-            totalCost += ticketTotal;
-            standardCost += ticketTotal;
+            // TICKETS & ANNUAL PASSES
+            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+            
+            if (ticketType === 'tickets') {
+                const dayTicketsSelect = document.getElementById('dayTickets');
+                if (dayTicketsSelect.value) {
+                    const ticketPrice = parseFloat(dayTicketsSelect.value);
+                    const ticketTotal = ticketPrice * totalGuests;
+                    totalCost += ticketTotal;
+                    standardCost += ticketTotal;
+                }
+            } else if (ticketType === 'annual') {
+                const annualPassSelect = document.getElementById('annualPass');
+                if (annualPassSelect.value) {
+                    const passData = annualPassSelect.value.split('|');
+                    const passPrice = parseFloat(passData[0]);
+                    const passTotal = passPrice * totalGuests;
+                    totalCost += passTotal;
+                    
+                    // Compare to day tickets
+                    const dayTicketEquivalent = 379 * totalGuests; // 3-day average
+                    standardCost += dayTicketEquivalent;
+                    
+                    if (passPrice < dayTicketEquivalent) {
+                        savingsTips.push({ 
+                            tip: 'Annual pass cheaper than day tickets', 
+                            savings: dayTicketEquivalent - passTotal 
+                        });
+                    }
+                }
+            }
+
+            // EXPRESS PASS
+            const needsExpress = document.getElementById('needsExpress')?.checked;
+            if (needsExpress) {
+                const expressType = document.getElementById('expressType');
+                if (expressType.value) {
+                    const expressPrice = parseFloat(expressType.value);
+                    const expressCost = expressPrice * totalGuests * parkDays;
+                    
+                    // Check if staying at Premier hotel (gets free Express)
+                    if (needsHotel && hotelPrice >= 386) {
+                        savingsTips.push({ 
+                            tip: '💡 HACK: Premier hotels include FREE Unlimited Express Pass!', 
+                            savings: 119 * totalGuests * parkDays,
+                            isHack: true 
+                        });
+                    } else {
+                        totalCost += expressCost;
+                        standardCost += expressCost;
+                    }
+                }
+            } else if (needsHotel && hotelPrice >= 386) {
+                // Not buying Express but staying at Premier hotel
+                savingsTips.push({ 
+                    tip: '✨ Premier hotel includes FREE Unlimited Express Pass', 
+                    savings: 119 * totalGuests * parkDays 
+                });
+            }
+
+            // PARKING
+            const needsParking = document.getElementById('needsParking')?.checked;
+            if (needsParking) {
+                const parkingType = document.getElementById('parkingType');
+                if (parkingType.value) {
+                    const parkingPrice = parseFloat(parkingType.value);
+                    const parkingCost = parkingPrice * parkDays;
+                    
+                    if (needsHotel) {
+                        savingsTips.push({ 
+                            tip: '💡 HACK: Hotel guests get FREE self-parking', 
+                            savings: 30 * parkDays,
+                            isHack: true 
+                        });
+                    } else {
+                        totalCost += parkingCost;
+                        standardCost += parkingCost;
+                        
+                        if (parkingPrice > 30) {
+                            savingsTips.push({ 
+                                tip: '💡 HACK: Arrive after 2pm for 50% off parking', 
+                                savings: parkingCost * 0.5,
+                                isHack: true 
+                            });
+                        }
+                    }
+                }
+            }
 
             // CAR RENTAL
-            totalCost += carRental;
-            standardCost += carRental;
-
-            // PREMIUM FACTORS
-            if (appState.isPremium) {
-                // Express Pass
-                const expressPass = parseFloat(document.getElementById('expressPass').value);
-                if (expressPass > 0) {
-                    const expressCost = expressPass * guests * parkDays;
-                    totalCost += expressCost;
-                    standardCost += expressCost;
-                    
-                    if (hotelPrice >= 400) {
-                        savingsTips.push({ 
-                            tip: '💡 HACK: Premier hotels include FREE Express Pass', 
-                            savings: expressCost,
-                            isHack: true 
-                        });
-                    }
-                } else if (hotelPrice >= 400) {
-                    const expressSavings = 119 * guests * parkDays;
-                    savingsTips.push({ 
-                        tip: 'Premier hotel includes Express Pass', 
-                        savings: expressSavings 
-                    });
+            const needsCarRental = document.getElementById('needsCarRental')?.checked;
+            if (needsCarRental) {
+                const carRentalType = document.getElementById('carRentalType');
+                if (carRentalType.value) {
+                    const carRentalPrice = parseFloat(carRentalType.value);
+                    totalCost += carRentalPrice;
+                    standardCost += carRentalPrice;
                 }
+            }
 
-                // Parking
-                const parking = parseFloat(document.getElementById('parking').value);
-                if (parking > 0) {
-                    const parkingCost = parking * parkDays;
-                    totalCost += parkingCost;
-                    standardCost += parkingCost;
+            // MEALS
+            const needsMeals = document.getElementById('needsMeals')?.checked;
+            if (needsMeals) {
+                const mealsPerDay = document.getElementById('mealsPerDay');
+                if (mealsPerDay.value) {
+                    const mealPrice = parseFloat(mealsPerDay.value);
+                    let mealsCost = mealPrice * totalGuests * parkDays;
+                    const standardMealsCost = mealsCost;
                     
-                    if (parking > 30) {
-                        savingsTips.push({ 
-                            tip: '💡 HACK: Arrive after 2pm for 50% off parking', 
-                            savings: parkingCost * 0.5,
-                            isHack: true 
-                        });
-                    }
-                }
-
-                // Meals
-                const meals = parseFloat(document.getElementById('meals').value);
-                if (meals > 0) {
-                    let mealsCost = meals * guests * parkDays;
-                    const passholder = document.getElementById('passholder').value;
-                    
-                    if (passholder === 'seasonal') {
-                        const mealDiscount = mealsCost * 0.15;
-                        mealsCost *= 0.85;
-                        savingsTips.push({ tip: 'Seasonal Pass 15% food discount', savings: mealDiscount });
-                    } else if (passholder === 'power') {
-                        const mealDiscount = mealsCost * 0.10;
-                        mealsCost *= 0.90;
-                        savingsTips.push({ tip: 'Power Pass 10% food discount', savings: mealDiscount });
+                    // Apply annual pass food discount
+                    const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+                    if (ticketType === 'annual') {
+                        const annualPassSelect = document.getElementById('annualPass');
+                        if (annualPassSelect.value) {
+                            const passData = annualPassSelect.value.split('|');
+                            const foodDiscount = parseFloat(passData[3]);
+                            
+                            if (foodDiscount > 0) {
+                                const mealDiscount = mealsCost * (foodDiscount / 100);
+                                mealsCost *= (1 - foodDiscount / 100);
+                                savingsTips.push({ 
+                                    tip: `Annual Pass: ${foodDiscount}% food discount`, 
+                                    savings: mealDiscount 
+                                });
+                            }
+                        }
                     }
                     
                     totalCost += mealsCost;
-                    standardCost += (meals * guests * parkDays);
+                    standardCost += standardMealsCost;
                 }
+            }
 
-                // Souvenirs
-                const souvenirs = parseFloat(document.getElementById('souvenirs').value);
-                if (souvenirs > 0) {
-                    const souvTotal = souvenirs * guests;
+            // SOUVENIRS
+            const needsSouvenirs = document.getElementById('needsSouvenirs')?.checked;
+            if (needsSouvenirs) {
+                const souvenirBudget = document.getElementById('souvenirBudget');
+                if (souvenirBudget.value) {
+                    const souvenirPrice = parseFloat(souvenirBudget.value);
+                    const souvTotal = souvenirPrice * totalGuests;
                     totalCost += souvTotal;
                     standardCost += souvTotal;
-                }
-
-                // Add-ons
-                const addons = parseFloat(document.getElementById('addons').value);
-                if (addons > 0) {
-                    totalCost += addons * guests;
-                    standardCost += addons * guests;
+                    
+                    // Check for Preferred/Premier pass 10-15% in-park discount
+                    const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+                    if (ticketType === 'annual') {
+                        const annualPassSelect = document.getElementById('annualPass');
+                        if (annualPassSelect.value) {
+                            const passData = annualPassSelect.value.split('|');
+                            const passType = passData[1];
+                            
+                            if (passType === 'preferred') {
+                                const merchDiscount = souvTotal * 0.10;
+                                totalCost -= merchDiscount;
+                                savingsTips.push({ 
+                                    tip: 'Preferred Pass: 10% merchandise discount', 
+                                    savings: merchDiscount 
+                                });
+                            } else if (passType === 'premier') {
+                                const merchDiscount = souvTotal * 0.15;
+                                totalCost -= merchDiscount;
+                                savingsTips.push({ 
+                                    tip: 'Premier Pass: 15% merchandise discount', 
+                                    savings: merchDiscount 
+                                });
+                            }
+                        }
+                    }
                 }
             }
 
@@ -1665,18 +1886,18 @@
                 <h3>Total Package Price</h3>
                 <div class="big-price">$${Math.round(totalCost).toLocaleString()}</div>
                 ${totalSavings > 0 ? `
-                    <div class="savings">You're saving $${Math.round(totalSavings).toLocaleString()}!</div>
+                    <div class="savings">You're saving $${Math.round(totalSavings).toLocaleString()}! 🎉</div>
                     <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray);">
                         vs. standard rate of $${Math.round(standardCost).toLocaleString()}
                     </div>
-                ` : '<div class="savings">Ready to book?</div>'}
+                ` : totalCost > 0 ? '<div class="savings">Ready to book?</div>' : '<div class="savings">Select options above to calculate</div>'}
                 <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">
-                    ${nights} nights • ${guests} guests • ${parkDays} park days
+                    ${nights} nights • ${adults} adults${children > 0 ? ` • ${children} children` : ''} • ${parkDays} park days
                 </div>
             `;
 
-            // Show savings breakdown for premium users
-            if (appState.isPremium && savingsTips.length > 0) {
+            // Show savings breakdown
+            if (savingsTips.length > 0) {
                 const breakdownDiv = document.getElementById('savingsBreakdown');
                 breakdownDiv.style.display = 'block';
                 breakdownDiv.innerHTML = `
