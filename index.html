@@ -557,6 +557,15 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+            
+            /* Stack calculator on mobile */
+            .calculator-section > div > div:first-child {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .calculator-section .result-box {
+                position: static !important;
+            }
         }
     </style>
 </head>
@@ -784,46 +793,46 @@
                     title: 'September & January Are Cheapest Months',
                     content: 'After Labor Day through September, and post-New Year\'s through early February offer 30-50% lower prices across hotels and tickets. Kids in school = lower crowds and better deals. Weather is still warm.'
                 },
-                // PREMIUM TIPS (8 expert-level strategies)
+                // All 23 tips are FREE!
                 {
-                    type: 'premium',
-                    title: '💬 Get Expert Trip Planning',
+                    type: 'free',
+                    title: '💬 Expert Trip Planning Available',
                     content: 'Premium members can submit their trip details and receive a custom day-by-day itinerary from our Universal Orlando experts. We analyze your dates, group size, and preferences to build the optimal plan including dining reservations, ride strategies, and touring order. Turnaround: 24 hours.'
                 },
                 {
-                    type: 'premium',
-                    title: '🔔 Automatic Price Monitoring',
-                    content: 'Set up alerts for your specific package and we\'ll monitor prices 24/7. When hotels drop $20+ per night or tickets drop $25+, you\'ll get an immediate email. Our system has helped premium members save an additional $200-600 on average by rebooking at better rates.'
+                    type: 'free',
+                    title: '🔔 Set Up Price Alerts (Premium)',
+                    content: 'Premium members can set up alerts for specific packages - we monitor prices 24/7 and email when hotels drop $20+ per night or tickets drop $25+. Our system has helped premium members save an additional $200-600 on average by rebooking at better rates.'
                 },
                 {
-                    type: 'premium',
+                    type: 'free',
                     title: '🎯 Hidden Hotel Booking Loophole',
                     content: 'Book Sapphire Falls for weekday arrivals before 7am and request "early courtesy check-in" at the front desk. This gives you 45 extra minutes of early park admission that\'s not advertised. Combined with rope drop strategy, you can hit 8-10 major attractions before lunch.'
                 },
                 {
-                    type: 'premium',
+                    type: 'free',
                     title: '💰 Tuesday 3am Price Drop Pattern',
-                    content: 'Universal\'s pricing algorithm updates every Tuesday at 3am EST. Our tracking shows 15-23% price drops during this window for bookings 30-60 days out. Premium members get automatic alerts when their target dates drop, plus best practices for booking quickly.'
+                    content: 'Universal\'s pricing algorithm updates every Tuesday at 3am EST. Our tracking shows 15-23% price drops during this window for bookings 30-60 days out. Check prices early Tuesday mornings for the best deals, especially for trips 30-60 days away.'
                 },
                 {
-                    type: 'premium',
+                    type: 'free',
                     title: '🏨 Value + Premier Night Combo Strategy',
                     content: 'Book 3 nights at Cabana Bay ($159/night) + 1 night at Hard Rock ($429). Check in at Hard Rock first, get your Express Pass tickets, then "transfer" to Cabana Bay. The Express tickets work for your entire length of stay (2-3 days). Saves $200-400 per person vs buying Express separately.'
                 },
                 {
-                    type: 'premium',
+                    type: 'free',
                     title: '🚗 MCO Rental Car Upgrade Timing',
-                    content: 'Book economy cars for Friday pickup after 8pm at Orlando Airport. Rental companies over-book economy class and upgrade 73% of the time to avoid buyback penalties. We track which companies have highest success rates each week - typically Budget and National lead.'
+                    content: 'Book economy cars for Friday pickup after 8pm at Orlando Airport. Rental companies over-book economy class and upgrade 73% of the time to avoid buyback penalties. Budget and National typically have the highest success rates for free upgrades.'
                 },
                 {
-                    type: 'premium',
-                    title: '🎫 Annual Pass ROI Calculator',
-                    content: 'Seasonal passes ($304) pay for themselves vs 3-day tickets ($379) if you stay 3+ nights due to 40% hotel discount. Our premium calculator shows exact break-even point based on your specific hotels and dates. Most families save $300-700 with this strategy even on a single trip.'
+                    type: 'free',
+                    title: '🎫 Annual Pass ROI Quick Math',
+                    content: 'Seasonal passes ($425-525) pay for themselves vs 3-day tickets ($379) if you stay 3+ nights due to 40% hotel discount. Example: 3 nights at Cabana Bay saves $174 on hotel alone. Most families save $300-700 with this strategy even on a single trip.'
                 },
                 {
-                    type: 'premium',
-                    title: '📊 Package Comparison Engine',
-                    content: 'Premium members can run unlimited "what-if" scenarios comparing different hotel/ticket/timing combinations. Our algorithm tests 100+ variations and ranks them by total cost and value. Average finding: switching from weekend to weekday saves $400-800 for a family of 4.'
+                    type: 'free',
+                    title: '📊 Package Comparison Strategy',
+                    content: 'Use our calculator to compare different combinations. Try: Weekday vs Weekend (saves $400-800 for family of 4), Value hotel + Annual Pass vs Premier hotel with day tickets, and arriving Sunday-Thursday vs Friday-Saturday for best overall value.'
                 }
             ]
         };
@@ -1337,209 +1346,160 @@
                         <h2 class="card-title">🧮 Vacation Package Builder</h2>
                     </div>
                     
-                    <!-- Trip Details -->
-                    <div class="calculator-grid">
-                        <div class="input-group">
-                            <label>Check-In Date</label>
-                            <input type="date" id="checkIn" onchange="calculatePackage()">
-                        </div>
-                        <div class="input-group">
-                            <label>Check-Out Date</label>
-                            <input type="date" id="checkOut" onchange="calculatePackage()">
-                        </div>
-                        <div class="input-group">
-                            <label>Number of Adults</label>
-                            <input type="number" id="adults" value="2" min="1" max="10" onchange="calculatePackage()">
-                        </div>
-                        <div class="input-group">
-                            <label>Number of Children (3-9)</label>
-                            <input type="number" id="children" value="0" min="0" max="10" onchange="calculatePackage()">
-                        </div>
-                    </div>
-
-                    <!-- Interactive Checklist System (Now FREE!) -->
-                    <div style="margin-top: 2rem;">
-                        <h3 style="font-family: 'Archivo Black', sans-serif; color: var(--primary); margin-bottom: 1rem;">
-                            Select Your Vacation Components
-                        </h3>
-                        
-                        <!-- Hotels Section -->
-                        <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🏨 Accommodations</h4>
-                            <div style="display: grid; gap: 0.75rem;">
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px; transition: all 0.2s;">
-                                    <input type="checkbox" id="needsHotel" onchange="calculatePackage()" checked>
-                                    <span style="font-weight: 600;">I need a hotel</span>
-                                </label>
-                                <div id="hotelOptions" style="margin-left: 2rem; display: grid; gap: 0.5rem;">
-                                    <select id="hotelType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="">Select Hotel...</option>
-                                        <optgroup label="Value Inn & Suites">
-                                            <option value="99">Endless Summer Surfside - From $99/night</option>
-                                            <option value="99">Endless Summer Dockside - From $99/night</option>
-                                        </optgroup>
-                                        <optgroup label="Prime Value">
-                                            <option value="145">Cabana Bay Beach Resort - From $145/night</option>
-                                            <option value="145">Aventura Hotel - From $145/night</option>
-                                            <option value="134">Stella Nova Resort - From $134/night</option>
-                                            <option value="134">Terra Luna Resort - From $134/night</option>
-                                        </optgroup>
-                                        <optgroup label="Signature Collection (Preferred)">
-                                            <option value="222">Sapphire Falls Resort - From $222/night</option>
-                                        </optgroup>
-                                        <optgroup label="Signature Collection (Premier - FREE Express Pass)">
-                                            <option value="421">Royal Pacific Resort - From $421/night</option>
-                                            <option value="386">Hard Rock Hotel - From $386/night</option>
-                                            <option value="393">Portofino Bay Hotel - From $393/night</option>
-                                        </optgroup>
-                                    </select>
+                    <!-- Two-column layout: Inputs on left, Price on right -->
+                    <div style="display: grid; grid-template-columns: 1fr 350px; gap: 2rem; align-items: start;">
+                        <!-- LEFT COLUMN: All inputs -->
+                        <div>
+                            <!-- Trip Details -->
+                            <div class="calculator-grid" style="grid-template-columns: repeat(2, 1fr);">
+                                <div class="input-group">
+                                    <label>Check-In Date</label>
+                                    <input type="date" id="checkIn" onchange="calculatePackage()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Check-Out Date</label>
+                                    <input type="date" id="checkOut" onchange="calculatePackage()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Adults</label>
+                                    <input type="number" id="adults" value="2" min="1" max="10" onchange="calculatePackage()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Children (3-9)</label>
+                                    <input type="number" id="children" value="0" min="0" max="10" onchange="calculatePackage()">
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Annual Pass Section -->
-                        <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🎫 Tickets & Annual Passes</h4>
-                            <div style="display: grid; gap: 0.75rem;">
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="radio" name="ticketType" value="none" onchange="calculatePackage()">
-                                    <span>No tickets needed (I already have them)</span>
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="radio" name="ticketType" value="tickets" onchange="calculatePackage(); toggleTicketOptions()" checked>
-                                    <span style="font-weight: 600;">Buy Day Tickets</span>
-                                </label>
-                                <div id="ticketOptions" style="margin-left: 2rem; display: grid; gap: 0.5rem;">
-                                    <select id="dayTickets" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="349">2-Day Park-to-Park - $349</option>
-                                        <option value="379">3-Day Park-to-Park - $379</option>
-                                        <option value="409">4-Day Park-to-Park - $409</option>
-                                        <option value="435">5-Day Park-to-Park - $435</option>
-                                    </select>
-                                </div>
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="radio" name="ticketType" value="annual" onchange="calculatePackage(); toggleAnnualPassOptions()">
-                                    <span style="font-weight: 600;">Buy Annual Passes (40% hotel discount!)</span>
-                                </label>
-                                <div id="annualPassOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
-                                    <select id="annualPass" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="">Select Pass Type...</option>
-                                        <optgroup label="Out-of-State Prices">
-                                            <option value="424.99|seasonal|40|0">Seasonal 2-Park - $424.99 (40% hotels)</option>
-                                            <option value="524.99|seasonal|40|15">Seasonal 3-Park - $524.99 (40% hotels + 15% food)</option>
-                                            <option value="474.99|power|30|0">Power 2-Park - $474.99 (30% hotels)</option>
-                                            <option value="584.99|power|30|10">Power 3-Park - $584.99 (30% hotels + 10% food)</option>
-                                            <option value="629.99|preferred|0|10">Preferred 2-Park - $629.99 (10% in-park)</option>
-                                            <option value="739.99|preferred|0|10">Preferred 3-Park - $739.99 (10% in-park + food)</option>
-                                            <option value="904.99|premier|0|15">Premier 2-Park - $904.99 (15% + Free Express 4pm+)</option>
-                                            <option value="1094.99|premier|0|15">Premier 3-Park - $1,094.99 (15% + Free Express 4pm+)</option>
+                            <!-- Compact Checklist System -->
+                            <div style="margin-top: 1.5rem; display: grid; gap: 1rem;">
+                                
+                                <!-- Hotels - Compact -->
+                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <input type="checkbox" id="needsHotel" onchange="calculatePackage()" checked>
+                                        <label style="font-weight: 600; margin: 0;">🏨 Hotel</label>
+                                    </div>
+                                    <select id="hotelType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
+                                        <option value="">Select...</option>
+                                        <optgroup label="Value ($99-145/nt)">
+                                            <option value="99">Endless Summer - $99/nt</option>
+                                            <option value="145">Cabana Bay - $145/nt</option>
+                                            <option value="134">Stella/Terra Nova - $134/nt</option>
+                                        </optgroup>
+                                        <optgroup label="Preferred ($222/nt)">
+                                            <option value="222">Sapphire Falls - $222/nt</option>
+                                        </optgroup>
+                                        <optgroup label="Premier - FREE Express ($386-421/nt)">
+                                            <option value="421">Royal Pacific - $421/nt</option>
+                                            <option value="386">Hard Rock - $386/nt</option>
+                                            <option value="393">Portofino Bay - $393/nt</option>
                                         </optgroup>
                                     </select>
                                 </div>
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: #e8f5e9; border-radius: 8px; border: 2px solid var(--success);">
-                                    <input type="checkbox" id="hasExistingPass" onchange="calculatePackage(); toggleExistingPassOptions()">
-                                    <span style="font-weight: 600; color: var(--success);">✓ I already have an Annual Pass (apply discounts)</span>
-                                </label>
-                                <div id="existingPassOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
-                                    <select id="existingPassType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="">Select Your Pass Type...</option>
-                                        <option value="seasonal|40|0">Seasonal 2-Park (40% hotels)</option>
-                                        <option value="seasonal|40|15">Seasonal 3-Park (40% hotels + 15% food)</option>
-                                        <option value="power|30|0">Power 2-Park (30% hotels)</option>
-                                        <option value="power|30|10">Power 3-Park (30% hotels + 10% food)</option>
-                                        <option value="preferred|0|10">Preferred (10% in-park + food)</option>
-                                        <option value="premier|0|15">Premier (15% in-park + Free Express 4pm+)</option>
-                                    </select>
-                                    <div style="background: #e8f5e9; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; color: var(--success);">
-                                        💡 We'll apply all your pass discounts without charging for a new pass!
+
+                                <!-- Tickets - Compact -->
+                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
+                                    <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">🎫 Tickets</label>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                            <input type="radio" name="ticketType" value="none" onchange="calculatePackage()">
+                                            Already have tickets
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                            <input type="radio" name="ticketType" value="tickets" onchange="calculatePackage(); toggleTicketOptions()" checked>
+                                            Buy Day Tickets
+                                        </label>
+                                        <select id="dayTickets" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; margin-left: 1.5rem; font-size: 0.85rem;">
+                                            <option value="349">2-Day - $349</option>
+                                            <option value="379">3-Day - $379</option>
+                                            <option value="409">4-Day - $409</option>
+                                            <option value="435">5-Day - $435</option>
+                                        </select>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                            <input type="radio" name="ticketType" value="annual" onchange="calculatePackage(); toggleAnnualPassOptions()">
+                                            Buy Annual Passes
+                                        </label>
+                                        <select id="annualPass" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; margin-left: 1.5rem; display: none; font-size: 0.85rem;">
+                                            <option value="">Select...</option>
+                                            <option value="424.99|seasonal|40|0">Seasonal 2-Park - $425 (40% hotels)</option>
+                                            <option value="524.99|seasonal|40|15">Seasonal 3-Park - $525 (40% hotels+food)</option>
+                                            <option value="474.99|power|30|0">Power 2-Park - $475 (30% hotels)</option>
+                                            <option value="584.99|power|30|10">Power 3-Park - $585 (30% hotels+food)</option>
+                                            <option value="629.99|preferred|0|10">Preferred 2-Park - $630 (10% parks)</option>
+                                            <option value="739.99|preferred|0|10">Preferred 3-Park - $740 (10% parks)</option>
+                                            <option value="904.99|premier|0|15">Premier 2-Park - $905 (15%+Express)</option>
+                                            <option value="1094.99|premier|0|15">Premier 3-Park - $1,095 (15%+Express)</option>
+                                        </select>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem; background: #e8f5e9; padding: 0.5rem; border-radius: 6px; font-size: 0.9rem;">
+                                            <input type="checkbox" id="hasExistingPass" onchange="calculatePackage(); toggleExistingPassOptions()">
+                                            Already have Annual Pass
+                                        </label>
+                                        <select id="existingPassType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; margin-left: 1.5rem; display: none; font-size: 0.85rem;">
+                                            <option value="">Select type...</option>
+                                            <option value="seasonal|40|0">Seasonal 2-Park</option>
+                                            <option value="seasonal|40|15">Seasonal 3-Park</option>
+                                            <option value="power|30|0">Power 2-Park</option>
+                                            <option value="power|30|10">Power 3-Park</option>
+                                            <option value="preferred|0|10">Preferred</option>
+                                            <option value="premier|0|15">Premier</option>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Express Pass Section -->
-                        <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">⚡ Express Pass (Skip the Lines)</h4>
-                            <div style="display: grid; gap: 0.75rem;">
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="checkbox" id="needsExpress" onchange="calculatePackage(); toggleExpressOptions()">
-                                    <span style="font-weight: 600;">Add Express Pass</span>
-                                </label>
-                                <div id="expressOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
-                                    <select id="expressType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="119">Unlimited Express - ~$119/person/day</option>
-                                        <option value="79">Express After 4pm - ~$79/person/day</option>
-                                    </select>
-                                    <div style="background: #fff3cd; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;">
-                                        💡 Premier hotels include FREE Unlimited Express Pass!
+                                <!-- Express Pass - Compact -->
+                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <input type="checkbox" id="needsExpress" onchange="calculatePackage(); toggleExpressOptions()">
+                                        <label style="font-weight: 600; margin: 0;">⚡ Express Pass</label>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Parking Section -->
-                        <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🚗 Parking & Transportation</h4>
-                            <div style="display: grid; gap: 0.75rem;">
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="checkbox" id="needsParking" onchange="calculatePackage(); toggleParkingOptions()">
-                                    <span style="font-weight: 600;">I need parking</span>
-                                </label>
-                                <div id="parkingOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
-                                    <select id="parkingType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="30">Standard Parking - $30/day</option>
-                                        <option value="60">Preferred Parking - $60/day</option>
-                                        <option value="100">Prime Parking - $100/day</option>
+                                    <select id="expressType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
+                                        <option value="119">Unlimited - ~$119/day</option>
+                                        <option value="79">After 4pm - ~$79/day</option>
                                     </select>
-                                    <div style="background: #e3f2fd; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;">
-                                        💡 Hotel guests get free self-parking. Arrive after 2pm for 50% off!
+                                </div>
+
+                                <!-- Parking & Car - Compact -->
+                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <input type="checkbox" id="needsParking" onchange="calculatePackage(); toggleParkingOptions()">
+                                        <label style="font-weight: 600; margin: 0;">🚗 Parking</label>
                                     </div>
-                                </div>
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="checkbox" id="needsCarRental" onchange="calculatePackage(); toggleCarRentalOptions()">
-                                    <span style="font-weight: 600;">I need a rental car</span>
-                                </label>
-                                <div id="carRentalOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
-                                    <select id="carRentalType" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="245">Economy - $245/week</option>
-                                        <option value="315">Mid-Size - $315/week</option>
-                                        <option value="385">SUV - $385/week</option>
+                                    <select id="parkingType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
+                                        <option value="30">Standard - $30/day</option>
+                                        <option value="60">Preferred - $60/day</option>
+                                        <option value="100">Prime - $100/day</option>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Meals Section -->
-                        <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🍔 Meals & Dining</h4>
-                            <div style="display: grid; gap: 0.75rem;">
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="checkbox" id="needsMeals" onchange="calculatePackage(); toggleMealOptions()">
-                                    <span style="font-weight: 600;">Budget for meals at the parks</span>
-                                </label>
-                                <div id="mealOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
-                                    <select id="mealsPerDay" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
-                                        <option value="35">1 Meal per person/day - ~$35</option>
-                                        <option value="70">2 Meals per person/day - ~$70</option>
-                                        <option value="105">3 Meals per person/day - ~$105</option>
-                                    </select>
-                                    <div style="background: #e8f5e9; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;">
-                                        💡 Seasonal/Power passes get 10-15% off food!
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+                                        <input type="checkbox" id="needsCarRental" onchange="calculatePackage(); toggleCarRentalOptions()">
+                                        <label style="font-weight: 600; margin: 0; font-size: 0.9rem;">Rental Car</label>
                                     </div>
+                                    <select id="carRentalType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; margin-top: 0.5rem; font-size: 0.85rem;">
+                                        <option value="245">Economy - $245/wk</option>
+                                        <option value="315">Mid-Size - $315/wk</option>
+                                        <option value="385">SUV - $385/wk</option>
+                                    </select>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Extras Section -->
-                        <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--dark);">🎁 Extras & Add-Ons</h4>
-                            <div style="display: grid; gap: 0.75rem;">
-                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background: white; border-radius: 8px;">
-                                    <input type="checkbox" id="needsSouvenirs" onchange="calculatePackage(); toggleSouvenirOptions()">
-                                    <span style="font-weight: 600;">Souvenirs & Shopping</span>
-                                </label>
-                                <div id="souvenirOptions" style="margin-left: 2rem; display: none; display: grid; gap: 0.5rem;">
-                                    <select id="souvenirBudget" onchange="calculatePackage()" style="padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px;">
+                                <!-- Meals - Compact -->
+                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <input type="checkbox" id="needsMeals" onchange="calculatePackage(); toggleMealOptions()">
+                                        <label style="font-weight: 600; margin: 0;">🍔 Meals</label>
+                                    </div>
+                                    <select id="mealsPerDay" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
+                                        <option value="35">1 Meal/day - $35/person</option>
+                                        <option value="70">2 Meals/day - $70/person</option>
+                                        <option value="105">3 Meals/day - $105/person</option>
+                                    </select>
+                                </div>
+
+                                <!-- Souvenirs - Compact -->
+                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <input type="checkbox" id="needsSouvenirs" onchange="calculatePackage(); toggleSouvenirOptions()">
+                                        <label style="font-weight: 600; margin: 0;">🎁 Souvenirs</label>
+                                    </div>
+                                    <select id="souvenirBudget" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
                                         <option value="50">Modest - $50/person</option>
                                         <option value="150">Moderate - $150/person</option>
                                         <option value="300">Generous - $300/person</option>
@@ -1547,103 +1507,105 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="result-box" id="calculatorResult" style="margin-top: 2rem;">
-                        <h3>Total Package Price</h3>
-                        <div class="big-price">$0</div>
-                        <div class="savings">Select options above to calculate</div>
-                    </div>
+                        <!-- RIGHT COLUMN: Sticky price box -->
+                        <div style="position: sticky; top: 120px;">
+                            <div class="result-box" id="calculatorResult">
+                                <h3>Total Package Price</h3>
+                                <div class="big-price">$0</div>
+                                <div class="savings">Select options to calculate</div>
+                            </div>
 
-                    <div id="savingsBreakdown" style="margin-top: 2rem; display: none;">
-                        <!-- Dynamic savings breakdown will appear here -->
+                            <div id="savingsBreakdown" style="margin-top: 1rem; display: none;">
+                                <!-- Dynamic savings breakdown -->
+                            </div>
+                            
+                            ${appState.isPremium ? `
+                                <div style="margin-top: 1rem; display: grid; gap: 0.5rem;">
+                                    <button class="btn btn-primary" onclick="savePackageAlert()" style="width: 100%; font-size: 0.9rem; padding: 0.75rem;">
+                                        🔔 Set Price Alert
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="requestExpertReview()" style="width: 100%; font-size: 0.9rem; padding: 0.75rem;">
+                                        💬 Expert Review
+                                    </button>
+                                </div>
+                            ` : `
+                                <div style="margin-top: 1rem; padding: 1rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 8px; border: 2px solid #667eea; text-align: center;">
+                                    <div style="font-weight: 700; color: #667eea; margin-bottom: 0.5rem; font-size: 0.95rem;">Want More?</div>
+                                    <p style="color: var(--gray); margin-bottom: 0.75rem; font-size: 0.85rem;">
+                                        Get price alerts & expert reviews
+                                    </p>
+                                    <button class="btn btn-premium" onclick="showPremiumModal()" style="width: 100%; font-size: 0.9rem; padding: 0.75rem;">
+                                        Upgrade - $7.99/mo
+                                    </button>
+                                </div>
+                            `}
+                        </div>
                     </div>
-                    
-                    ${appState.isPremium ? `
-                        <div style="margin-top: 1.5rem; text-align: center;">
-                            <button class="btn btn-primary" onclick="savePackageAlert()" style="margin-right: 1rem;">
-                                🔔 Set Price Alert for This Package
-                            </button>
-                            <button class="btn btn-secondary" onclick="requestExpertReview()">
-                                💬 Get Expert Review
-                            </button>
-                        </div>
-                    ` : `
-                        <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 12px; border: 2px solid #667eea; text-align: center;">
-                            <h3 style="font-family: 'Archivo Black', sans-serif; color: #667eea; margin-bottom: 1rem;">
-                                Want Even More Savings?
-                            </h3>
-                            <p style="color: var(--gray); margin-bottom: 1.5rem;">
-                                Upgrade to Premium for automatic price drop alerts, expert trip reviews, and extended flexible date finding (7+ day trips).
-                            </p>
-                            <button class="btn btn-premium" onclick="showPremiumModal()">
-                                Upgrade to Premium - $7.99/month
-                            </button>
-                        </div>
-                    `}
                 </div>
             `;
         }
-
         function toggleTicketOptions() {
-            const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
-            document.getElementById('ticketOptions').style.display = ticketType === 'tickets' ? 'grid' : 'none';
-            document.getElementById('annualPassOptions').style.display = 'none';
+            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+            const dayTicketsSelect = document.getElementById('dayTickets');
+            const annualPassSelect = document.getElementById('annualPass');
+            
+            if (dayTicketsSelect) dayTicketsSelect.style.display = ticketType === 'tickets' ? 'block' : 'none';
+            if (annualPassSelect) annualPassSelect.style.display = 'none';
         }
 
         function toggleAnnualPassOptions() {
-            const ticketType = document.querySelector('input[name="ticketType"]:checked').value;
-            document.getElementById('annualPassOptions').style.display = ticketType === 'annual' ? 'grid' : 'none';
-            document.getElementById('ticketOptions').style.display = 'none';
+            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+            const dayTicketsSelect = document.getElementById('dayTickets');
+            const annualPassSelect = document.getElementById('annualPass');
+            
+            if (annualPassSelect) annualPassSelect.style.display = ticketType === 'annual' ? 'block' : 'none';
+            if (dayTicketsSelect) dayTicketsSelect.style.display = 'none';
         }
 
         function toggleExistingPassOptions() {
-            const hasPass = document.getElementById('hasExistingPass').checked;
-            document.getElementById('existingPassOptions').style.display = hasPass ? 'grid' : 'none';
+            const hasPass = document.getElementById('hasExistingPass')?.checked;
+            const existingPassSelect = document.getElementById('existingPassType');
+            if (existingPassSelect) existingPassSelect.style.display = hasPass ? 'block' : 'none';
         }
 
         function toggleExpressOptions() {
-            const needsExpress = document.getElementById('needsExpress').checked;
-            document.getElementById('expressOptions').style.display = needsExpress ? 'grid' : 'none';
+            const needsExpress = document.getElementById('needsExpress')?.checked;
+            const expressSelect = document.getElementById('expressType');
+            if (expressSelect) expressSelect.style.display = needsExpress ? 'block' : 'none';
         }
 
         function toggleParkingOptions() {
-            const needsParking = document.getElementById('needsParking').checked;
-            document.getElementById('parkingOptions').style.display = needsParking ? 'grid' : 'none';
+            const needsParking = document.getElementById('needsParking')?.checked;
+            const parkingSelect = document.getElementById('parkingType');
+            if (parkingSelect) parkingSelect.style.display = needsParking ? 'block' : 'none';
         }
 
         function toggleCarRentalOptions() {
-            const needsCarRental = document.getElementById('needsCarRental').checked;
-            document.getElementById('carRentalOptions').style.display = needsCarRental ? 'grid' : 'none';
+            const needsCarRental = document.getElementById('needsCarRental')?.checked;
+            const carRentalSelect = document.getElementById('carRentalType');
+            if (carRentalSelect) carRentalSelect.style.display = needsCarRental ? 'block' : 'none';
         }
 
         function toggleMealOptions() {
-            const needsMeals = document.getElementById('needsMeals').checked;
-            document.getElementById('mealOptions').style.display = needsMeals ? 'grid' : 'none';
+            const needsMeals = document.getElementById('needsMeals')?.checked;
+            const mealsSelect = document.getElementById('mealsPerDay');
+            if (mealsSelect) mealsSelect.style.display = needsMeals ? 'block' : 'none';
         }
 
         function toggleSouvenirOptions() {
-            const needsSouvenirs = document.getElementById('needsSouvenirs').checked;
-            document.getElementById('souvenirOptions').style.display = needsSouvenirs ? 'grid' : 'none';
+            const needsSouvenirs = document.getElementById('needsSouvenirs')?.checked;
+            const souvenirSelect = document.getElementById('souvenirBudget');
+            if (souvenirSelect) souvenirSelect.style.display = needsSouvenirs ? 'block' : 'none';
         }
 
         function renderInsiderTips() {
             const freeTips = appState.insiderTips.filter(tip => tip.type === 'free');
-            const premiumTips = appState.insiderTips.filter(tip => tip.type === 'premium');
             
             return `
                 <div class="card insider-tips">
                     <div class="tips-header">
-                        <h2 class="card-title">💡 Money-Saving Strategies</h2>
-                        ${!appState.isPremium && appState.user ? `
-                            <button class="btn btn-premium" onclick="showPremiumModal()">
-                                Get Expert Planning + Premium Tools
-                            </button>
-                        ` : !appState.user ? `
-                            <button class="btn btn-primary" onclick="showAuthModal('signup')">
-                                Sign Up Free - No Credit Card
-                            </button>
-                        ` : ''}
+                        <h2 class="card-title">💡 Money-Saving Strategies (All Free!)</h2>
                     </div>
                     
                     ${freeTips.map(tip => `
@@ -1654,27 +1616,19 @@
                         </div>
                     `).join('')}
                     
-                    ${appState.isPremium ? premiumTips.map(tip => `
-                        <div class="tip-card premium">
-                            <span class="tip-badge premium">⭐ PREMIUM</span>
-                            <div class="tip-title">${tip.title}</div>
-                            <div class="tip-content">${tip.content}</div>
+                    ${!appState.isPremium ? `
+                        <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 12px; border: 2px solid #667eea; text-align: center;">
+                            <h3 style="font-family: 'Archivo Black', sans-serif; color: #667eea; margin-bottom: 1rem;">
+                                Want Automatic Price Alerts & Expert Reviews?
+                            </h3>
+                            <p style="color: var(--gray); margin-bottom: 1.5rem;">
+                                Upgrade to Premium for 24/7 price monitoring, personalized trip reviews from Universal experts, and extended flexible date searching.
+                            </p>
+                            <button class="btn btn-premium" onclick="showPremiumModal()">
+                                Upgrade to Premium - $7.99/month
+                            </button>
                         </div>
-                    `).join('') : `
-                        ${premiumTips.slice(0, 3).map(tip => `
-                            <div class="tip-card premium" style="position: relative;">
-                                <span class="tip-badge premium">⭐ PREMIUM</span>
-                                <div class="tip-title locked">${tip.title}</div>
-                                <div class="tip-content locked">${tip.content}</div>
-                                <div class="premium-overlay">
-                                    <div class="lock-icon">🔒</div>
-                                    <button class="btn btn-premium" onclick="showPremiumModal()">
-                                        Unlock Premium Tracker + Expert Guidance
-                                    </button>
-                                </div>
-                            </div>
-                        `).join('')}
-                    `}
+                    ` : ''}
                 </div>
             `;
         }
@@ -1981,18 +1935,19 @@
                 const breakdownDiv = document.getElementById('savingsBreakdown');
                 breakdownDiv.style.display = 'block';
                 breakdownDiv.innerHTML = `
-                    <h3 style="font-family: 'Archivo Black', sans-serif; color: var(--primary); margin-bottom: 1rem;">
-                        💰 Your Money-Saving Strategies
-                    </h3>
+                    <div style="font-weight: 700; color: var(--primary); margin-bottom: 0.75rem; font-size: 0.95rem;">
+                        💰 Your Savings
+                    </div>
                     ${savingsTips.map(tip => `
-                        <div style="background: ${tip.isHack ? 'linear-gradient(135deg, #00C85315, #4CAF5015)' : 'var(--light-gray)'}; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border-left: 4px solid ${tip.isHack ? 'var(--success)' : 'var(--primary)'};">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="font-weight: 600;">${tip.tip}</span>
-                                <span style="color: var(--success); font-weight: 700; font-size: 1.1rem;">-$${Math.round(tip.savings)}</span>
-                            </div>
+                        <div style="background: ${tip.isHack ? 'linear-gradient(135deg, #00C85315, #4CAF5015)' : 'var(--light-gray)'}; padding: 0.75rem; border-radius: 6px; margin-bottom: 0.5rem; border-left: 3px solid ${tip.isHack ? 'var(--success)' : 'var(--primary)'};">
+                            <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">${tip.tip}</div>
+                            <div style="color: var(--success); font-weight: 700; font-size: 1rem;">-$${Math.round(tip.savings)}</div>
                         </div>
                     `).join('')}
                 `;
+            } else {
+                const breakdownDiv = document.getElementById('savingsBreakdown');
+                breakdownDiv.style.display = 'none';
             }
         }
 
