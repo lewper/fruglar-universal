@@ -1,652 +1,587 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fruglar | Universal Orlando - Your Smartest Vacation, Your Lowest Price</title>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066CC',
+                        'primary-dark': '#004A99',
+                        secondary: '#FF6B00',
+                        accent: '#FFD700',
+                        success: '#00C853',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #0066CC;
-            --primary-dark: #004A99;
-            --secondary: #FF6B00;
-            --accent: #FFD700;
-            --success: #00C853;
-            --dark: #1A1A1A;
-            --gray: #666;
-            --light-gray: #F5F5F5;
-            --border: #E0E0E0;
-            --premium: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-            color: var(--dark);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 1.5rem 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: -1px;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo .brand {
-            font-size: 1.8rem;
-        }
-
-        .logo .subtitle {
-            font-size: 0.7rem;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .user-badge {
-            background: var(--premium);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #ff8c33;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,107,0,0.3);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-premium {
-            background: var(--premium);
-            color: white;
-            animation: shimmer 3s infinite;
-        }
-
         @keyframes shimmer {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .welcome-banner {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-            border-left: 6px solid var(--secondary);
-        }
-
-        .welcome-banner h1 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .savings-highlight {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--success), #00e676);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-title {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.3rem;
-            color: var(--primary);
-        }
-
-        .price-trend {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 700;
-            color: var(--success);
-        }
-
-        .price-trend.up {
-            color: #f44336;
-        }
-
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            background: var(--light-gray);
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            transition: all 0.2s;
-        }
-
-        .price-item:hover {
-            background: #e8eaf0;
-            transform: translateX(4px);
-        }
-
-        .price-label {
-            font-weight: 600;
-        }
-
-        .price-value {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--primary);
-        }
-
-        .calculator-section {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            border: 2px solid #667eea;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'DM Sans', sans-serif;
-            transition: all 0.3s;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
-        }
-
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .result-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 3px solid var(--success);
-        }
-
-        .result-box h3 {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .result-box .big-price {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 3rem;
-            color: var(--primary);
-            line-height: 1;
-        }
-
-        .result-box .savings {
-            color: var(--success);
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-        }
-
-        .insider-tips {
-            grid-column: 1 / -1;
-        }
-
-        .tips-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .tip-card {
-            background: var(--light-gray);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tip-card.premium {
-            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
-            border-left-color: #667eea;
-        }
-
-        .tip-card.locked {
-            filter: blur(3px);
-            pointer-events: none;
-        }
-
-        .premium-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255,255,255,0.95);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .lock-icon {
-            font-size: 3rem;
-        }
-
-        .tip-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .tip-content {
-            color: var(--gray);
-            line-height: 1.8;
-        }
-
-        .tip-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .tip-badge.free {
-            background: var(--success);
-            color: white;
-        }
-
-        .tip-badge.premium {
-            background: var(--premium);
-            color: white;
-        }
-
-        .auth-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(8px);
-        }
-
-        .auth-modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .modal-content h2 {
-            font-family: 'Archivo Black', sans-serif;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .affiliate-section {
-            background: linear-gradient(135deg, var(--secondary), #ff8c33);
-            color: white;
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            text-align: center;
-            margin: 3rem 0;
-            box-shadow: 0 8px 30px rgba(255,107,0,0.3);
-        }
-
-        .affiliate-section h2 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .affiliate-section p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .affiliate-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .affiliate-btn {
-            background: white;
-            color: var(--secondary);
-            padding: 1.25rem 2.5rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            transition: all 0.3s;
-            border: 3px solid white;
-            cursor: pointer;
-        }
-
-        .affiliate-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            background: var(--accent);
-            color: var(--dark);
-        }
-
-        .affiliate-btn .icon {
-            font-size: 1.5rem;
-        }
-
-        .tagline {
-            font-size: 0.95rem;
-            color: white;
-            margin-top: 0.5rem;
-            opacity: 0.85;
-        }
-
-        .discount-banner {
-            background: linear-gradient(135deg, var(--secondary), #ff8c33);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 700;
-            margin: 1rem 0;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .feature-list {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
-        .feature-list li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .feature-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--gray);
-            background: none;
-            border: none;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .calculator-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            /* Stack calculator on mobile */
-            .calculator-section > div > div:first-child {
-                grid-template-columns: 1fr !important;
-            }
-            
-            .calculator-section .result-box {
-                position: static !important;
-            }
+        .shimmer {
+            animation: shimmer 3s infinite;
         }
     </style>
 </head>
-<body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="brand">Frug<span>lar</span></div>
-                <div class="subtitle">Universal Orlando</div>
-            </div>
-            <div class="header-actions" id="headerActions">
-                <!-- Dynamic content loaded here -->
+<body class="bg-gray-50 font-sans antialiased">
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-md shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-black">
+                        <span class="text-gray-900">Frug</span><span class="text-accent">lar</span>
+                    </div>
+                    <div class="text-xs font-medium tracking-wider text-gray-600 uppercase">Universal Orlando</div>
+                </div>
+                <div id="headerActions" class="flex items-center gap-3">
+                    <!-- Dynamic content -->
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <div class="container" id="mainContent">
-        <!-- Dynamic content loaded here -->
-    </div>
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-purple-900"></div>
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-accent/20 to-secondary/20 animate-pulse"></div>
+        </div>
+        
+        <div class="container relative z-20 text-center px-4 mx-auto">
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                Plan Your Perfect<br/>Universal Orlando Vacation
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto font-medium">
+                Live your fullest life for the lowest cost. Smart strategies that save you hundreds.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <a href="#calculator" class="bg-secondary hover:bg-secondary/90 text-white px-10 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-2xl">
+                    Build Your Package
+                </a>
+                <a href="#tips" class="bg-white hover:bg-gray-100 text-gray-900 px-10 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-2xl">
+                    See Insider Tips
+                </a>
+            </div>
+            <div id="heroStats" class="inline-block bg-gradient-to-r from-success to-green-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-2xl">
+                💰 Average member savings: $847 per trip
+            </div>
+        </div>
+    </section>
 
+    <!-- Quick Booking CTAs -->
+    <section class="py-16 bg-gradient-to-r from-secondary via-orange-600 to-secondary -mt-20 relative z-10">
+        <div class="container px-4 mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-3">Ready to Book Your Trip?</h2>
+                <p class="text-white/90 text-lg">Use our trusted partners to lock in the best prices</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <button onclick="trackAffiliate('hotels')" class="bg-white hover:bg-accent text-gray-900 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group">
+                    <div class="text-5xl mb-3">🏨</div>
+                    <div class="font-bold text-xl mb-1">Book Hotels</div>
+                    <div class="text-sm text-gray-600">Universal & Partner Properties</div>
+                </button>
+                <button onclick="trackAffiliate('tickets')" class="bg-white hover:bg-accent text-gray-900 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group">
+                    <div class="text-5xl mb-3">🎫</div>
+                    <div class="font-bold text-xl mb-1">Get Tickets</div>
+                    <div class="text-sm text-gray-600">Best Price Guarantee</div>
+                </button>
+                <button onclick="trackAffiliate('rentals')" class="bg-white hover:bg-accent text-gray-900 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group">
+                    <div class="text-5xl mb-3">🚗</div>
+                    <div class="font-bold text-xl mb-1">Rent a Car</div>
+                    <div class="text-sm text-gray-600">Compare All Major Brands</div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Annual Pass ROI Section -->
+    <section class="py-20 bg-white">
+        <div class="container px-4 mx-auto max-w-7xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">Should You Buy a Seasonal Pass?</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Seasonal passes cost $304-$525, but unlock 40% hotel discounts and 15% food discounts. Let's see if it saves money.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Without Pass -->
+                <div class="bg-gray-50 p-8 rounded-3xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Without Seasonal Pass</h3>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-700">3-Day Tickets (x2)</span>
+                            <span class="font-bold text-lg">$758</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-700">Hotel (3 nights @ $289)</span>
+                            <span class="font-bold text-lg">$867</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-700">Food (3 days)</span>
+                            <span class="font-bold text-lg">$420</span>
+                        </div>
+                    </div>
+                    <div class="border-t-2 border-gray-200 pt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold">Total</span>
+                            <span class="text-3xl font-black text-gray-900">$2,045</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- With Pass -->
+                <div class="bg-gradient-to-br from-success/10 to-green-100 p-8 rounded-3xl shadow-xl border-4 border-success">
+                    <h3 class="text-2xl font-bold text-success mb-6">✓ With Seasonal Passes</h3>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-700">Seasonal Passes (x2)</span>
+                            <span class="font-bold text-lg">$608</span>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700">Hotel (3 nights @ $173)</span>
+                                <span class="font-bold text-lg text-success">$520</span>
+                            </div>
+                            <div class="text-sm text-success ml-4">40% discount applied</div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700">Food (3 days)</span>
+                                <span class="font-bold text-lg text-success">$357</span>
+                            </div>
+                            <div class="text-sm text-success ml-4">15% discount applied</div>
+                        </div>
+                    </div>
+                    <div class="border-t-2 border-success pt-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-bold">Total</span>
+                            <span class="text-3xl font-black text-success">$1,485</span>
+                        </div>
+                        <div class="bg-success text-white px-6 py-4 rounded-2xl text-center">
+                            <div class="text-2xl font-black">You Save $560! 🎉</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Return Trip Info -->
+            <div class="bg-gradient-to-r from-primary/10 to-purple-100 p-8 rounded-3xl shadow-lg">
+                <h3 class="text-2xl font-bold text-primary mb-4">💰 Planning a Return Trip? Save Even MORE</h3>
+                <p class="text-gray-700 mb-6">
+                    <strong>If you visit again within 12 months:</strong> Your passes are already paid for! You'd only pay for hotels (with 40% discount) and food (with 15% discount).
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl">
+                        <div class="font-bold text-lg mb-2">Second Trip (3 nights):</div>
+                        <div class="text-sm text-gray-600 mb-4">Hotel + Food only</div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-3xl font-black text-success">$877</div>
+                            <div class="text-sm text-gray-600">vs $1,287 without pass</div>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-success to-green-600 p-6 rounded-2xl text-white flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-3xl font-black mb-2">Total Savings</div>
+                            <div class="text-5xl font-black">$970</div>
+                            <div class="text-lg">Across Both Trips!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="annualPassCTA" class="text-center mt-12">
+                <!-- Dynamic CTA will appear here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Tracking Dashboard -->
+    <section class="py-20 bg-gray-100">
+        <div class="container px-4 mx-auto max-w-7xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">Current Prices</h2>
+                <p class="text-xl text-gray-600">Track the latest rates and trends</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="priceTracking">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Optimal Date Finder -->
+    <section class="py-20 bg-white">
+        <div class="container px-4 mx-auto max-w-7xl">
+            <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 md:p-12 rounded-3xl shadow-xl border-2 border-primary/20">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">📅 Optimal Date Finder</h2>
+                        <p class="text-gray-600 text-lg">Find the cheapest window with lowest crowds</p>
+                    </div>
+                    <span class="bg-success text-white px-4 py-2 rounded-full text-sm font-bold">FREE</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label class="block font-bold text-gray-900 mb-2">Flexible Month</label>
+                        <select id="flexMonth" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                            <option value="">Select a month...</option>
+                            <option value="2025-01">January 2025</option>
+                            <option value="2025-02">February 2025</option>
+                            <option value="2025-03">March 2025</option>
+                            <option value="2025-06">June 2025</option>
+                            <option value="2025-07">July 2025</option>
+                            <option value="2025-09">September 2025</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-900 mb-2">Trip Length</label>
+                        <select id="tripLength" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                            <option value="3">3 Days / 2 Nights</option>
+                            <option value="4">4 Days / 3 Nights</option>
+                            <option value="5">5 Days / 4 Nights</option>
+                            <option value="6">6 Days / 5 Nights</option>
+                        </select>
+                        <div id="premiumTripLengths"></div>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-900 mb-2">Priority</label>
+                        <select id="datePriority" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                            <option value="price">Lowest Price</option>
+                            <option value="crowds">Lowest Crowds</option>
+                            <option value="balanced">Balanced (Price + Crowds)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button onclick="findOptimalDates()" class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
+                    🔍 Find Best Dates
+                </button>
+                
+                <div id="optimalDateResults" class="hidden mt-8">
+                    <!-- Results will appear here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container px-4 mx-auto max-w-7xl">
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-8">🧮 Vacation Package Builder</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Left Column - Inputs -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Trip Details -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold text-gray-900 mb-2">Check-In Date</label>
+                                <input type="date" id="checkIn" onchange="calculatePackage()" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-gray-900 mb-2">Check-Out Date</label>
+                                <input type="date" id="checkOut" onchange="calculatePackage()" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-gray-900 mb-2">Adults</label>
+                                <input type="number" id="adults" value="2" min="1" max="10" onchange="calculatePackage()" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-gray-900 mb-2">Children (3-9)</label>
+                                <input type="number" id="children" value="0" min="0" max="10" onchange="calculatePackage()" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Hotel Selection -->
+                        <div class="bg-gray-50 p-6 rounded-2xl">
+                            <div class="flex items-center gap-3 mb-4">
+                                <input type="checkbox" id="needsHotel" onchange="calculatePackage()" checked class="w-5 h-5 text-primary rounded">
+                                <label class="font-bold text-lg text-gray-900">🏨 Hotel</label>
+                            </div>
+                            <select id="hotelType" onchange="calculatePackage()" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                                <option value="">Select...</option>
+                                <optgroup label="Value ($99-145/nt)">
+                                    <option value="99">Endless Summer - $99/nt</option>
+                                    <option value="145">Cabana Bay - $145/nt</option>
+                                    <option value="134">Stella/Terra Nova - $134/nt</option>
+                                </optgroup>
+                                <optgroup label="Preferred ($222/nt)">
+                                    <option value="222">Sapphire Falls - $222/nt</option>
+                                </optgroup>
+                                <optgroup label="Premier - FREE Express ($386-421/nt)">
+                                    <option value="421">Royal Pacific - $421/nt</option>
+                                    <option value="386">Hard Rock - $386/nt</option>
+                                    <option value="393">Portofino Bay - $393/nt</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <!-- Tickets -->
+                        <div class="bg-gray-50 p-6 rounded-2xl">
+                            <label class="font-bold text-lg text-gray-900 mb-4 block">🎫 Tickets</label>
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="radio" name="ticketType" value="none" onchange="calculatePackage()" class="w-5 h-5 text-primary">
+                                    <span>Already have tickets</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="radio" name="ticketType" value="tickets" onchange="calculatePackage(); toggleTicketOptions()" checked class="w-5 h-5 text-primary">
+                                    <span>Buy Day Tickets</span>
+                                </label>
+                                <select id="dayTickets" onchange="calculatePackage()" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors ml-8">
+                                    <option value="349">2-Day - $349</option>
+                                    <option value="379">3-Day - $379</option>
+                                    <option value="409">4-Day - $409</option>
+                                    <option value="435">5-Day - $435</option>
+                                </select>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="radio" name="ticketType" value="annual" onchange="calculatePackage(); toggleAnnualPassOptions()" class="w-5 h-5 text-primary">
+                                    <span>Buy Annual Passes</span>
+                                </label>
+                                <select id="annualPass" onchange="calculatePackage()" class="hidden w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors ml-8">
+                                    <option value="">Select...</option>
+                                    <option value="424.99|seasonal|40|0">Seasonal 2-Park - $425 (40% hotels)</option>
+                                    <option value="524.99|seasonal|40|15">Seasonal 3-Park - $525 (40% hotels+food)</option>
+                                    <option value="474.99|power|30|0">Power 2-Park - $475 (30% hotels)</option>
+                                    <option value="584.99|power|30|10">Power 3-Park - $585 (30% hotels+food)</option>
+                                    <option value="629.99|preferred|0|10">Preferred 2-Park - $630 (10% parks)</option>
+                                    <option value="739.99|preferred|0|10">Preferred 3-Park - $740 (10% parks)</option>
+                                    <option value="904.99|premier|0|15">Premier 2-Park - $905 (15%+Express)</option>
+                                    <option value="1094.99|premier|0|15">Premier 3-Park - $1,095 (15%+Express)</option>
+                                </select>
+                                <label class="flex items-center gap-3 cursor-pointer bg-green-50 p-3 rounded-xl">
+                                    <input type="checkbox" id="hasExistingPass" onchange="calculatePackage(); toggleExistingPassOptions()" class="w-5 h-5 text-success">
+                                    <span class="font-medium">Already have Annual Pass</span>
+                                </label>
+                                <select id="existingPassType" onchange="calculatePackage()" class="hidden w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors ml-8">
+                                    <option value="">Select type...</option>
+                                    <option value="seasonal|40|0">Seasonal 2-Park</option>
+                                    <option value="seasonal|40|15">Seasonal 3-Park</option>
+                                    <option value="power|30|0">Power 2-Park</option>
+                                    <option value="power|30|10">Power 3-Park</option>
+                                    <option value="preferred|0|10">Preferred</option>
+                                    <option value="premier|0|15">Premier</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Additional Options -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Express Pass -->
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <input type="checkbox" id="needsExpress" onchange="calculatePackage(); toggleExpressOptions()" class="w-5 h-5 text-primary">
+                                    <label class="font-bold text-lg text-gray-900">⚡ Express Pass</label>
+                                </div>
+                                <select id="expressType" onchange="calculatePackage()" class="hidden w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                                    <option value="119">Unlimited - ~$119/day</option>
+                                    <option value="79">After 4pm - ~$79/day</option>
+                                </select>
+                            </div>
+
+                            <!-- Parking -->
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <input type="checkbox" id="needsParking" onchange="calculatePackage(); toggleParkingOptions()" class="w-5 h-5 text-primary">
+                                    <label class="font-bold text-lg text-gray-900">🚗 Parking</label>
+                                </div>
+                                <select id="parkingType" onchange="calculatePackage()" class="hidden w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors mb-3">
+                                    <option value="30">Standard - $30/day</option>
+                                    <option value="60">Preferred - $60/day</option>
+                                    <option value="100">Prime - $100/day</option>
+                                </select>
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" id="needsCarRental" onchange="calculatePackage(); toggleCarRentalOptions()" class="w-5 h-5 text-primary">
+                                    <label class="font-medium text-gray-900">Rental Car</label>
+                                </div>
+                                <select id="carRentalType" onchange="calculatePackage()" class="hidden w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors mt-3">
+                                    <option value="245">Economy - $245/wk</option>
+                                    <option value="315">Mid-Size - $315/wk</option>
+                                    <option value="385">SUV - $385/wk</option>
+                                </select>
+                            </div>
+
+                            <!-- Meals -->
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <input type="checkbox" id="needsMeals" onchange="calculatePackage(); toggleMealOptions()" class="w-5 h-5 text-primary">
+                                    <label class="font-bold text-lg text-gray-900">🍔 Meals</label>
+                                </div>
+                                <select id="mealsPerDay" onchange="calculatePackage()" class="hidden w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                                    <option value="35">1 Meal/day - $35/person</option>
+                                    <option value="70">2 Meals/day - $70/person</option>
+                                    <option value="105">3 Meals/day - $105/person</option>
+                                </select>
+                            </div>
+
+                            <!-- Souvenirs -->
+                            <div class="bg-gray-50 p-6 rounded-2xl">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <input type="checkbox" id="needsSouvenirs" onchange="calculatePackage(); toggleSouvenirOptions()" class="w-5 h-5 text-primary">
+                                    <label class="font-bold text-lg text-gray-900">🎁 Souvenirs</label>
+                                </div>
+                                <select id="souvenirBudget" onchange="calculatePackage()" class="hidden w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
+                                    <option value="50">Modest - $50/person</option>
+                                    <option value="150">Moderate - $150/person</option>
+                                    <option value="300">Generous - $300/person</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Price Display -->
+                    <div class="lg:sticky lg:top-32 space-y-6">
+                        <div id="calculatorResult" class="bg-gradient-to-br from-primary to-primary-dark p-8 rounded-3xl shadow-2xl text-white text-center">
+                            <div class="text-sm uppercase tracking-wider mb-2 opacity-90">Total Package Price</div>
+                            <div class="text-6xl font-black mb-4">$0</div>
+                            <div class="text-lg opacity-90">Select options to calculate</div>
+                        </div>
+
+                        <div id="savingsBreakdown" class="hidden space-y-3">
+                            <!-- Savings details will appear here -->
+                        </div>
+
+                        <div id="calculatorCTA">
+                            <!-- Dynamic CTA will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insider Tips -->
+    <section id="tips" class="py-20 bg-white">
+        <div class="container px-4 mx-auto max-w-7xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">💡 Money-Saving Strategies</h2>
+                <p class="text-xl text-gray-600">All tips are completely free - no signup required!</p>
+            </div>
+            
+            <div id="insiderTips" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tips will be populated by JavaScript -->
+            </div>
+
+            <div id="premiumTipsCTA" class="mt-12">
+                <!-- Dynamic premium CTA will appear here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
     <!-- Auth Modal -->
-    <div class="auth-modal" id="authModal">
-        <div class="modal-content" style="position: relative;">
-            <button class="close-modal" onclick="closeAuthModal()">×</button>
-            <h2 id="modalTitle">Sign In</h2>
-            <div id="authForm">
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="authEmail" placeholder="your@email.com">
+    <div id="authModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 relative">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-3xl">×</button>
+            <h2 id="modalTitle" class="text-3xl font-black text-gray-900 mb-6">Sign In</h2>
+            <div id="authForm" class="space-y-4">
+                <div>
+                    <label class="block font-bold text-gray-900 mb-2">Email</label>
+                    <input type="email" id="authEmail" placeholder="your@email.com" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
                 </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="authPassword" placeholder="••••••••">
+                <div>
+                    <label class="block font-bold text-gray-900 mb-2">Password</label>
+                    <input type="password" id="authPassword" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors">
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="rememberMe">
-                    <label for="rememberMe">Remember me</label>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="rememberMe" class="w-4 h-4 text-primary rounded">
+                    <label for="rememberMe" class="text-sm text-gray-600">Remember me</label>
                 </div>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="handleAuth()">
+                <button onclick="handleAuth()" class="w-full bg-primary hover:bg-primary-dark text-white px-6 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105">
                     Sign In
                 </button>
-                <p style="text-align: center; margin-top: 1rem; color: var(--gray);">
-                    Don't have an account? <a href="#" onclick="toggleAuthMode()" style="color: var(--primary); font-weight: 600;">Sign Up</a>
+                <p class="text-center text-gray-600">
+                    Don't have an account? 
+                    <a href="#" onclick="toggleAuthMode()" class="text-primary font-bold hover:underline">Sign Up</a>
                 </p>
             </div>
         </div>
     </div>
 
     <!-- Premium Modal -->
-    <div class="auth-modal" id="premiumModal">
-        <div class="modal-content" style="position: relative;">
-            <button class="close-modal" onclick="closePremiumModal()">×</button>
-            <h2>Upgrade to Fruglar Premium</h2>
-            <p style="color: var(--gray); margin-bottom: 1.5rem;">
+    <div id="premiumModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 md:p-12 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closePremiumModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-3xl">×</button>
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Upgrade to Fruglar Premium</h2>
+            <p class="text-gray-600 text-lg mb-6">
                 Take your vacation planning to the next level with automated tracking, extended options, and expert guidance.
             </p>
-            <div class="discount-banner">
+            
+            <div class="bg-gradient-to-r from-secondary to-orange-600 text-white px-6 py-4 rounded-2xl text-center font-bold text-lg mb-8 shimmer">
                 🎉 Launch Special: First 500 Members Get Lifetime Discount!
             </div>
-            <ul class="feature-list">
-                <li><strong>🔔 Automatic Price Drop Alerts</strong> - We monitor your exact package 24/7 and email you when prices drop $20+</li>
-                <li><strong>💬 Expert Trip Reviews</strong> - Submit your package and get personalized recommendations from Universal pros within 24 hours</li>
-                <li><strong>📅 Extended Flexible Date Finder</strong> - Find optimal dates for trips 7+ days long with advanced filtering</li>
-                <li><strong>📈 Historical Price Charts</strong> - See 90-day price trends and "best time to book" predictions</li>
-                <li><strong>⭐ 8 Premium Strategy Guides</strong> - Advanced insider tactics not available to free users</li>
-                <li><strong>💎 Priority Email Support</strong> - Get responses within 24 hours for any questions</li>
-            </ul>
-            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                <button class="btn btn-secondary" style="flex: 1;" onclick="selectPlan('monthly')">
-                    <div style="font-size: 0.85rem; margin-bottom: 0.25rem;">Monthly</div>
-                    <div style="font-size: 1.3rem; font-weight: 700;">$7.99</div>
-                    <div style="font-size: 0.7rem; opacity: 0.8;">Cancel anytime</div>
+            
+            <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3">
+                    <div class="bg-success/10 text-success p-2 rounded-lg mt-1">✓</div>
+                    <div>
+                        <div class="font-bold text-gray-900">📧 Automatic Price Drop Alerts</div>
+                        <div class="text-gray-600 text-sm">We monitor your exact package 24/7 and email when prices drop $20+</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="bg-success/10 text-success p-2 rounded-lg mt-1">✓</div>
+                    <div>
+                        <div class="font-bold text-gray-900">💬 Expert Trip Reviews</div>
+                        <div class="text-gray-600 text-sm">Submit your package and get personalized recommendations within 24 hours</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="bg-success/10 text-success p-2 rounded-lg mt-1">✓</div>
+                    <div>
+                        <div class="font-bold text-gray-900">📅 Extended Flexible Date Finder</div>
+                        <div class="text-gray-600 text-sm">Find optimal dates for trips 7+ days long with advanced filtering</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="bg-success/10 text-success p-2 rounded-lg mt-1">✓</div>
+                    <div>
+                        <div class="font-bold text-gray-900">📈 Historical Price Charts</div>
+                        <div class="text-gray-600 text-sm">See 90-day price trends and "best time to book" predictions</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="bg-success/10 text-success p-2 rounded-lg mt-1">✓</div>
+                    <div>
+                        <div class="font-bold text-gray-900">💎 Priority Email Support</div>
+                        <div class="text-gray-600 text-sm">Get responses within 24 hours for any questions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button onclick="selectPlan('monthly')" class="bg-gray-100 hover:bg-gray-200 text-gray-900 p-6 rounded-2xl transition-all transform hover:scale-105 text-center">
+                    <div class="text-sm mb-2">Monthly</div>
+                    <div class="text-4xl font-black mb-2">$7.99</div>
+                    <div class="text-sm text-gray-600">Cancel anytime</div>
                 </button>
-                <button class="btn btn-premium" style="flex: 1; position: relative;" onclick="selectPlan('yearly')">
-                    <div style="position: absolute; top: -10px; right: -10px; background: var(--secondary); padding: 0.25rem 0.5rem; border-radius: 20px; font-size: 0.7rem;">BEST VALUE</div>
-                    <div style="font-size: 0.85rem; margin-bottom: 0.25rem;">Yearly</div>
-                    <div style="font-size: 1.3rem; font-weight: 700;">$39.99</div>
-                    <div style="font-size: 0.7rem; opacity: 0.8;">Save $56/year</div>
+                <button onclick="selectPlan('yearly')" class="bg-gradient-to-br from-primary to-purple-600 hover:from-primary-dark hover:to-purple-700 text-white p-6 rounded-2xl transition-all transform hover:scale-105 text-center relative shadow-xl">
+                    <div class="absolute -top-3 -right-3 bg-secondary text-white px-3 py-1 rounded-full text-xs font-bold">BEST VALUE</div>
+                    <div class="text-sm mb-2">Yearly</div>
+                    <div class="text-4xl font-black mb-2">$39.99</div>
+                    <div class="text-sm opacity-90">Save $56/year</div>
                 </button>
             </div>
-            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--gray);">
+            
+            <p class="text-center text-gray-600 text-sm mt-6">
                 💡 Premium membership pays for itself if it saves you just $40 on one trip
             </p>
         </div>
@@ -658,21 +593,6 @@
             user: null,
             isPremium: false,
             authMode: 'signin',
-            crowdCalendar: {
-                // Crowd levels 1-10 by date (sample data - would be dynamic)
-                '2025-01-15': { level: 3, waitAvg: 15 },
-                '2025-01-16': { level: 4, waitAvg: 25 },
-                '2025-01-17': { level: 2, waitAvg: 10 },
-                '2025-01-18': { level: 2, waitAvg: 12 },
-                '2025-01-19': { level: 3, waitAvg: 18 },
-                '2025-01-20': { level: 7, waitAvg: 45 },
-                '2025-02-14': { level: 8, waitAvg: 60 },
-                '2025-02-15': { level: 9, waitAvg: 75 },
-                '2025-06-15': { level: 9, waitAvg: 80 },
-                '2025-07-04': { level: 10, waitAvg: 90 },
-                '2025-09-10': { level: 3, waitAvg: 20 },
-                '2025-09-11': { level: 2, waitAvg: 15 }
-            },
             prices: {
                 hotels: [
                     { name: 'Cabana Bay (Value)', price: 159, trend: 'down', change: -12 },
@@ -689,35 +609,7 @@
                     { name: 'Mid-Size SUV (7 days)', price: 385, trend: 'stable', change: 0 }
                 ]
             },
-            priceHistory: {
-                // Sample 90-day price history for hotels (would be real historical data)
-                'cabana-bay': [
-                    { date: '2024-10-01', price: 189 },
-                    { date: '2024-10-15', price: 179 },
-                    { date: '2024-11-01', price: 159 },
-                    { date: '2024-11-15', price: 149 },
-                    { date: '2024-12-01', price: 159 },
-                    { date: '2024-12-15', price: 169 }
-                ],
-                'sapphire-falls': [
-                    { date: '2024-10-01', price: 329 },
-                    { date: '2024-10-15', price: 309 },
-                    { date: '2024-11-01', price: 289 },
-                    { date: '2024-11-15', price: 279 },
-                    { date: '2024-12-01', price: 289 },
-                    { date: '2024-12-15', price: 299 }
-                ],
-                'hard-rock': [
-                    { date: '2024-10-01', price: 479 },
-                    { date: '2024-10-15', price: 449 },
-                    { date: '2024-11-01', price: 429 },
-                    { date: '2024-11-15', price: 409 },
-                    { date: '2024-12-01', price: 429 },
-                    { date: '2024-12-15', price: 459 }
-                ]
-            },
             insiderTips: [
-                // FREE TIPS (15 total - massive value)
                 {
                     type: 'free',
                     title: 'Book Weekday Visits for 40% Lower Prices',
@@ -780,7 +672,7 @@
                 },
                 {
                     type: 'free',
-                    title: 'City Walk is FREE After 6pm',
+                    title: 'CityWalk is FREE After 6pm',
                     content: 'CityWalk venue cover charges disappear after 6pm most nights. Enjoy live music, restaurants, and entertainment without parking or entry fees if you\'re staying on property or arrive late.'
                 },
                 {
@@ -793,7 +685,6 @@
                     title: 'September & January Are Cheapest Months',
                     content: 'After Labor Day through September, and post-New Year\'s through early February offer 30-50% lower prices across hotels and tickets. Kids in school = lower crowds and better deals. Weather is still warm.'
                 },
-                // All 23 tips are FREE!
                 {
                     type: 'free',
                     title: '💬 Expert Trip Planning Available',
@@ -801,7 +692,7 @@
                 },
                 {
                     type: 'free',
-                    title: '🔔 Set Up Price Alerts (Premium)',
+                    title: '📧 Set Up Price Alerts (Premium)',
                     content: 'Premium members can set up alerts for specific packages - we monitor prices 24/7 and email when hotels drop $20+ per night or tickets drop $25+. Our system has helped premium members save an additional $200-600 on average by rebooking at better rates.'
                 },
                 {
@@ -840,797 +731,169 @@
         // Initialize App
         function initApp() {
             renderHeader();
-            renderDashboard();
+            renderPriceTracking();
+            renderInsiderTips();
+            renderDynamicCTAs();
+            
+            // Set default dates
+            const today = new Date();
+            const checkIn = new Date(today);
+            checkIn.setDate(checkIn.getDate() + 7);
+            const checkOut = new Date(checkIn);
+            checkOut.setDate(checkOut.getDate() + 4);
+            
+            document.getElementById('checkIn').value = checkIn.toISOString().split('T')[0];
+            document.getElementById('checkOut').value = checkOut.toISOString().split('T')[0];
+            calculatePackage();
         }
 
         function renderHeader() {
             const header = document.getElementById('headerActions');
             if (appState.user) {
                 header.innerHTML = `
-                    <div class="user-info">
-                        <div class="user-badge">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-gradient-to-r ${appState.isPremium ? 'from-purple-600 to-primary' : 'from-success to-green-600'} text-white px-4 py-2 rounded-full text-sm font-bold">
                             ${appState.isPremium ? '⭐ Premium' : '🆓 Free'} | ${appState.user.email}
                         </div>
-                        <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                        <button onclick="logout()" class="bg-gray-200 hover:bg-gray-300 text-gray-900 px-6 py-2 rounded-full font-bold transition-all">Logout</button>
                     </div>
                 `;
             } else {
                 header.innerHTML = `
-                    <button class="btn btn-primary" onclick="showAuthModal('signin')">Sign In</button>
-                    <button class="btn btn-secondary" onclick="showAuthModal('signup')">Sign Up</button>
+                    <button onclick="showAuthModal('signin')" class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full font-bold transition-all">Sign In</button>
+                    <button onclick="showAuthModal('signup')" class="bg-white hover:bg-gray-100 text-primary border-2 border-primary px-6 py-2 rounded-full font-bold transition-all">Sign Up</button>
                 `;
             }
         }
 
-        function renderDashboard() {
-            const content = document.getElementById('mainContent');
-            
-            content.innerHTML = `
-                <div class="welcome-banner">
-                    <h1>🎢 Plan Your Perfect Universal Orlando Vacation</h1>
-                    <p style="color: var(--gray); font-size: 1.1rem;">Live your fullest life for the lowest cost. Smart strategies that save you hundreds.</p>
-                    <div class="tagline" style="color: var(--primary); font-weight: 600; margin-top: 0.5rem;">Track prices • Calculate savings • Book smarter</div>
-                    ${!appState.user ? `<div class="savings-highlight">💰 Average member savings: $847 per trip</div>` : ''}
-                </div>
-
-                ${renderAffiliateSection()}
-
-                ${renderSeasonalPassROI()}
-
-                <div class="dashboard-grid">
-                    ${renderPriceTracking()}
-                    ${renderOptimalDateFinder()}
-                    ${appState.isPremium ? renderHistoricalPricing() : ''}
-                    ${renderCalculator()}
-                    ${renderInsiderTips()}
-                </div>
-            `;
-        }
-
-        function renderAffiliateSection() {
-            return `
-                <div class="affiliate-section">
-                    <h2>Ready to Book Your Trip?</h2>
-                    <p>Use our trusted partners below to lock in the best prices. We may earn a small commission at no extra cost to you.</p>
-                    <div class="affiliate-buttons">
-                        <a href="#" class="affiliate-btn" onclick="trackAffiliate('hotels'); return false;">
-                            <span class="icon">🏨</span>
-                            <div>
-                                <div>Book Hotels</div>
-                                <div style="font-size: 0.75rem; font-weight: 500; opacity: 0.8;">Universal & Partner Properties</div>
-                            </div>
-                        </a>
-                        <a href="#" class="affiliate-btn" onclick="trackAffiliate('tickets'); return false;">
-                            <span class="icon">🎫</span>
-                            <div>
-                                <div>Get Tickets</div>
-                                <div style="font-size: 0.75rem; font-weight: 500; opacity: 0.8;">Best Price Guarantee</div>
-                            </div>
-                        </a>
-                        <a href="#" class="affiliate-btn" onclick="trackAffiliate('rentals'); return false;">
-                            <span class="icon">🚗</span>
-                            <div>
-                                <div>Rent a Car</div>
-                                <div style="font-size: 0.75rem; font-weight: 500; opacity: 0.8;">Compare All Major Brands</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            `;
-        }
-
-        function trackAffiliate(type) {
-            // In production, this would track clicks and redirect to affiliate links
-            const urls = {
-                hotels: 'https://www.universalorlando.com/web/en/us/hotels',
-                tickets: 'https://www.universalorlando.com/web/en/us/tickets',
-                rentals: 'https://www.rentalcars.com'
-            };
-            
-            alert(`In production, this would redirect to:\n${urls[type]}\n\nWith your affiliate tracking code appended.`);
-            
-            // Analytics tracking would go here
-            console.log(`Affiliate click tracked: ${type}`);
-        }
-
-        function renderOptimalDateFinder() {
-            return `
-                <div class="card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #667eea15, #764ba215); border: 2px solid #667eea;">
-                    <div class="card-header">
-                        <h2 class="card-title">📅 Optimal Date Finder</h2>
-                        ${!appState.isPremium ? `<span class="tip-badge" style="background: var(--success); color: white;">FREE</span>` : ''}
-                    </div>
-                    <div style="margin-bottom: 1.5rem;">
-                        <p style="color: var(--gray); margin-bottom: 1rem;">Enter flexible travel dates and we'll find the cheapest window with lowest crowds.</p>
-                        <div class="calculator-grid">
-                            <div class="input-group">
-                                <label>Flexible Month</label>
-                                <select id="flexMonth">
-                                    <option value="">Select a month...</option>
-                                    <option value="2025-01">January 2025</option>
-                                    <option value="2025-02">February 2025</option>
-                                    <option value="2025-03">March 2025</option>
-                                    <option value="2025-06">June 2025</option>
-                                    <option value="2025-07">July 2025</option>
-                                    <option value="2025-09">September 2025</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>Trip Length</label>
-                                <select id="tripLength">
-                                    <option value="3">3 Days / 2 Nights</option>
-                                    <option value="4">4 Days / 3 Nights</option>
-                                    <option value="5">5 Days / 4 Nights</option>
-                                    <option value="6">6 Days / 5 Nights</option>
-                                    ${appState.isPremium ? `
-                                        <option value="7">7 Days / 6 Nights ⭐</option>
-                                        <option value="8">8 Days / 7 Nights ⭐</option>
-                                        <option value="9">9 Days / 8 Nights ⭐</option>
-                                        <option value="10">10 Days / 9 Nights ⭐</option>
-                                    ` : ''}
-                                </select>
-                                ${!appState.isPremium ? `
-                                    <div style="background: #fff3cd; padding: 0.5rem; border-radius: 6px; font-size: 0.8rem; margin-top: 0.5rem;">
-                                        💡 Upgrade to Premium for 7-10 day trips
-                                    </div>
-                                ` : ''}
-                            </div>
-                            <div class="input-group">
-                                <label>Priority</label>
-                                <select id="datePriority">
-                                    <option value="price">Lowest Price</option>
-                                    <option value="crowds">Lowest Crowds</option>
-                                    <option value="balanced">Balanced (Price + Crowds)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" onclick="findOptimalDates()" style="margin-top: 1rem;">
-                            🔍 Find Best Dates
-                        </button>
-                    </div>
-                    <div id="optimalDateResults" style="display: none;">
-                        <!-- Results populate here -->
-                    </div>
-                </div>
-            `;
-        }
-
-        function findOptimalDates() {
-            const month = document.getElementById('flexMonth').value;
-            const tripLength = parseInt(document.getElementById('tripLength').value);
-            const priority = document.getElementById('datePriority').value;
-            
-            if (!month) {
-                alert('Please select a month to search');
-                return;
-            }
-
-            // Simulate finding optimal dates (in production, this would analyze real data)
-            const recommendations = [
-                {
-                    dates: 'Jan 17-19, 2025',
-                    price: '$1,247',
-                    crowdLevel: 2,
-                    waitTime: 12,
-                    timeSavings: '4.5 hours',
-                    savings: '$423',
-                    rating: 'Excellent'
-                },
-                {
-                    dates: 'Jan 15-17, 2025',
-                    price: '$1,289',
-                    crowdLevel: 3,
-                    waitTime: 18,
-                    timeSavings: '3.2 hours',
-                    savings: '$381',
-                    rating: 'Very Good'
-                },
-                {
-                    dates: 'Jan 22-24, 2025',
-                    price: '$1,356',
-                    crowdLevel: 4,
-                    waitTime: 25,
-                    timeSavings: '2.0 hours',
-                    savings: '$314',
-                    rating: 'Good'
-                }
+        function renderPriceTracking() {
+            const container = document.getElementById('priceTracking');
+            const categories = [
+                { title: '🏨 Hotels', data: appState.prices.hotels, trend: 'down' },
+                { title: '🎫 Tickets', data: appState.prices.tickets, trend: 'down' },
+                { title: '🚗 Rentals', data: appState.prices.rentals, trend: 'stable' }
             ];
 
-            const resultsDiv = document.getElementById('optimalDateResults');
-            resultsDiv.style.display = 'block';
-            resultsDiv.innerHTML = `
-                <h3 style="font-family: 'Archivo Black', sans-serif; color: var(--primary); margin-bottom: 1rem;">
-                    🎯 Best Date Options for ${month}
-                </h3>
-                ${recommendations.map((rec, idx) => `
-                    <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-left: 6px solid ${idx === 0 ? 'var(--success)' : 'var(--primary)'};">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                            <div>
-                                <div style="font-weight: 700; font-size: 1.2rem; color: var(--dark);">${rec.dates}</div>
-                                <div style="color: var(--gray); font-size: 0.9rem; margin-top: 0.25rem;">
-                                    Crowd Level: ${rec.crowdLevel}/10 • Avg Wait: ${rec.waitTime} mins
+            container.innerHTML = categories.map(cat => `
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-gray-900">${cat.title}</h3>
+                        <div class="text-${cat.trend === 'down' ? 'success' : cat.trend === 'up' ? 'red-600' : 'gray-600'} font-bold text-sm">
+                            ${cat.trend === 'down' ? '↓ Trending Down' : cat.trend === 'up' ? '↑ Trending Up' : '→ Stable'}
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        ${cat.data.map(item => `
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                                <span class="font-medium text-gray-900">${item.name}</span>
+                                <div class="text-right">
+                                    <span class="text-lg font-bold text-primary">$${item.price}</span>
+                                    ${item.change !== 0 ? `<span class="text-sm ml-2 text-${item.change < 0 ? 'success' : 'red-600'}">${item.change < 0 ? '↓' : '↑'}${Math.abs(item.change)}</span>` : ''}
                                 </div>
                             </div>
-                            <div style="text-align: right;">
-                                <div style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; color: var(--primary);">${rec.price}</div>
-                                <div style="color: var(--success); font-weight: 700; font-size: 0.9rem;">Save ${rec.savings}</div>
-                            </div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                            <div style="background: var(--light-gray); padding: 0.75rem; border-radius: 8px; text-align: center;">
-                                <div style="font-size: 0.8rem; color: var(--gray); margin-bottom: 0.25rem;">Time Savings</div>
-                                <div style="font-weight: 700; color: var(--success); font-size: 1.1rem;">${rec.timeSavings}</div>
-                                <div style="font-size: 0.75rem; color: var(--gray);">vs peak days</div>
-                            </div>
-                            <div style="background: var(--light-gray); padding: 0.75rem; border-radius: 8px; text-align: center;">
-                                <div style="font-size: 0.8rem; color: var(--gray); margin-bottom: 0.25rem;">Value Rating</div>
-                                <div style="font-weight: 700; color: ${idx === 0 ? 'var(--success)' : 'var(--primary)'}; font-size: 1.1rem;">${rec.rating}</div>
-                            </div>
-                            ${idx === 0 ? `
-                                <div style="background: linear-gradient(135deg, var(--success), #00e676); padding: 0.75rem; border-radius: 8px; text-align: center; color: white;">
-                                    <div style="font-size: 0.8rem; margin-bottom: 0.25rem;">Best Choice</div>
-                                    <div style="font-weight: 700; font-size: 1.1rem;">⭐ #1</div>
-                                </div>
-                            ` : ''}
-                        </div>
-                        <button class="btn btn-secondary" onclick="applyDatesToCalculator('${rec.dates}')" style="width: 100%; margin-top: 1rem;">
-                            Use These Dates in Calculator
-                        </button>
-                    </div>
-                `).join('')}
-                <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107; margin-top: 1rem;">
-                    <strong>💡 Time Savings Explained:</strong> Low crowd days let you experience 15-20 attractions vs 8-12 on peak days. This saves 3-5 hours of waiting in lines per day!
-                </div>
-            `;
-        }
-
-        function applyDatesToCalculator(dateString) {
-            // Parse dates and apply to calculator (simplified for demo)
-            alert(`These dates would be applied to your calculator:\n${dateString}\n\nScroll up to see the updated calculator!`);
-            // In production, would parse dates and set the date inputs
-        }
-
-        function renderPriceTracking() {
-            return `
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">🏨 Hotel Prices</h2>
-                        <div class="price-trend down">↓ Trending Down</div>
-                    </div>
-                    ${appState.prices.hotels.map(hotel => `
-                        <div class="price-item">
-                            <span class="price-label">${hotel.name}</span>
-                            <div>
-                                <span class="price-value">$${hotel.price}</span>
-                                <span style="color: ${hotel.change < 0 ? 'var(--success)' : 'var(--gray)'}; font-size: 0.85rem; margin-left: 0.5rem;">
-                                    ${hotel.change < 0 ? '↓' : hotel.change > 0 ? '↑' : '→'} ${Math.abs(hotel.change)}
-                                </span>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">🎫 Ticket Prices</h2>
-                        <div class="price-trend down">↓ Best Deals</div>
-                    </div>
-                    ${appState.prices.tickets.map(ticket => `
-                        <div class="price-item">
-                            <span class="price-label">${ticket.name}</span>
-                            <div>
-                                <span class="price-value">$${ticket.price}</span>
-                                <span style="color: ${ticket.change < 0 ? 'var(--success)' : 'var(--gray)'}; font-size: 0.85rem; margin-left: 0.5rem;">
-                                    ${ticket.change < 0 ? '↓' : ticket.change > 0 ? '↑' : '→'} ${Math.abs(ticket.change)}
-                                </span>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">🚗 Car Rentals</h2>
-                        <div class="price-trend stable">→ Stable</div>
-                    </div>
-                    ${appState.prices.rentals.map(rental => `
-                        <div class="price-item">
-                            <span class="price-label">${rental.name}</span>
-                            <div>
-                                <span class="price-value">$${rental.price}</span>
-                                <span style="color: ${rental.change < 0 ? 'var(--success)' : 'var(--gray)'}; font-size: 0.85rem; margin-left: 0.5rem;">
-                                    ${rental.change < 0 ? '↓' : rental.change > 0 ? '↑' : '→'} ${Math.abs(rental.change)}
-                                </span>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        function renderHistoricalPricing() {
-            return `
-                <div class="card" style="grid-column: 1 / -1;">
-                    <div class="card-header">
-                        <h2 class="card-title">📈 Price History & Trends</h2>
-                        <span class="tip-badge premium">⭐ PREMIUM</span>
-                    </div>
-                    <div style="margin-bottom: 1.5rem;">
-                        <p style="color: var(--gray); margin-bottom: 1rem;">Track historical prices to book at the optimal time.</p>
-                        <div class="input-group" style="max-width: 300px;">
-                            <label>Select Hotel</label>
-                            <select id="priceHistoryHotel" onchange="updatePriceChart()">
-                                <option value="cabana-bay">Cabana Bay (Value)</option>
-                                <option value="sapphire-falls">Sapphire Falls (Preferred)</option>
-                                <option value="hard-rock">Hard Rock (Premier)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="priceChart" style="background: white; padding: 2rem; border-radius: 12px; border: 2px solid var(--border);">
-                        <!-- Chart renders here -->
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
-                        <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                            <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">90-Day Low</div>
-                            <div style="font-weight: 700; font-size: 1.3rem; color: var(--success);">$149</div>
-                        </div>
-                        <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                            <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">Current Price</div>
-                            <div style="font-weight: 700; font-size: 1.3rem; color: var(--primary);">$159</div>
-                        </div>
-                        <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                            <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">Predicted Next Drop</div>
-                            <div style="font-weight: 700; font-size: 1.3rem; color: var(--secondary);">Jan 28</div>
-                        </div>
-                        <div style="background: linear-gradient(135deg, var(--success)15, #4CAF5015); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--success);">
-                            <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">Best Time to Book</div>
-                            <div style="font-weight: 700; font-size: 1.1rem; color: var(--success);">Mid-January - Early Feb</div>
-                        </div>
+                        `).join('')}
                     </div>
                 </div>
-            `;
-        }
-
-        function updatePriceChart() {
-            const hotel = document.getElementById('priceHistoryHotel').value;
-            const history = appState.priceHistory[hotel];
-            
-            // Simple ASCII-style chart (in production, use Chart.js or similar)
-            const chartDiv = document.getElementById('priceChart');
-            const maxPrice = Math.max(...history.map(h => h.price));
-            const minPrice = Math.min(...history.map(h => h.price));
-            
-            chartDiv.innerHTML = `
-                <div style="font-weight: 600; margin-bottom: 1rem; color: var(--dark);">
-                    Last 90 Days: $${minPrice} - $${maxPrice}
-                </div>
-                <div style="display: flex; align-items: flex-end; justify-content: space-between; height: 150px; gap: 0.5rem;">
-                    ${history.map(point => {
-                        const height = ((point.price - minPrice) / (maxPrice - minPrice)) * 100;
-                        return `
-                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                                <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem;">$${point.price}</div>
-                                <div style="width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 4px 4px 0 0; height: ${height}%;"></div>
-                                <div style="font-size: 0.7rem; color: var(--gray); margin-top: 0.5rem; transform: rotate(-45deg); white-space: nowrap;">${point.date.split('-')[1]}/${point.date.split('-')[2]}</div>
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-                <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; margin-top: 1.5rem; border-left: 4px solid var(--primary);">
-                    <strong>📊 Trend Analysis:</strong> Prices dropped 16% from October to November. Based on historical patterns, we predict another 5-8% drop in late January.
-                </div>
-            `;
-        }
-
-        function renderSeasonalPassROI() {
-            return `
-                <div class="card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #00C85315, #4CAF5015); border: 2px solid var(--success); margin: 2rem 0;">
-                    <div class="card-header">
-                        <h2 class="card-title">🎫 Should You Buy a Seasonal Pass?</h2>
-                    </div>
-                    <p style="color: var(--gray); margin-bottom: 1.5rem;">
-                        Seasonal passes cost $304-$525, but they unlock 40% hotel discounts and 15% food discounts. Let's see if it saves money on YOUR trip.
-                    </p>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                        <div style="background: white; padding: 1.5rem; border-radius: 12px;">
-                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem;">
-                                Without Seasonal Pass
-                            </h3>
-                            <div style="margin-bottom: 0.75rem;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>3-Day Tickets (x2)</span>
-                                    <span style="font-weight: 600;">$758</span>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 0.75rem;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Hotel (3 nights @ $289)</span>
-                                    <span style="font-weight: 600;">$867</span>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 0.75rem;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Food (3 days)</span>
-                                    <span style="font-weight: 600;">$420</span>
-                                </div>
-                            </div>
-                            <div style="border-top: 2px solid var(--border); margin-top: 1rem; padding-top: 1rem;">
-                                <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700;">
-                                    <span>Total</span>
-                                    <span style="color: var(--dark);">$2,045</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 3px solid var(--success);">
-                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--success); margin-bottom: 1rem;">
-                                ✓ With Seasonal Passes
-                            </h3>
-                            <div style="margin-bottom: 0.75rem;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Seasonal Passes (x2)</span>
-                                    <span style="font-weight: 600;">$608</span>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 0.75rem;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Hotel (3 nights @ $173)</span>
-                                    <span style="font-weight: 600; color: var(--success);">$520</span>
-                                </div>
-                                <div style="font-size: 0.75rem; color: var(--success); margin-left: 1rem;">40% discount applied</div>
-                            </div>
-                            <div style="margin-bottom: 0.75rem;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Food (3 days)</span>
-                                    <span style="font-weight: 600; color: var(--success);">$357</span>
-                                </div>
-                                <div style="font-size: 0.75rem; color: var(--success); margin-left: 1rem;">15% discount applied</div>
-                            </div>
-                            <div style="border-top: 2px solid var(--success); margin-top: 1rem; padding-top: 1rem;">
-                                <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700;">
-                                    <span>Total</span>
-                                    <span style="color: var(--success);">$1,485</span>
-                                </div>
-                                <div style="margin-top: 0.5rem; padding: 0.75rem; background: var(--success); color: white; border-radius: 8px; text-align: center; font-size: 1.1rem; font-weight: 700;">
-                                    You Save $560! 🎉
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-top: 2rem;">
-                        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem;">
-                            💰 Planning a Return Trip? Save Even MORE
-                        </h3>
-                        <div style="color: var(--gray); line-height: 1.8;">
-                            <p style="margin-bottom: 0.75rem;">
-                                <strong>If you visit again within 12 months:</strong> Your passes are already paid for! You'd only pay for hotels (with 40% discount) and food (with 15% discount).
-                            </p>
-                            <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <div style="font-weight: 600;">Second Trip (3 nights):</div>
-                                        <div style="font-size: 0.9rem; color: var(--gray);">Hotel + Food only</div>
-                                    </div>
-                                    <div style="text-align: right;">
-                                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">$877</div>
-                                        <div style="font-size: 0.85rem; color: var(--gray);">vs $1,287 without pass</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="background: linear-gradient(135deg, var(--success)20, #4CAF5020); padding: 1.5rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--success);">
-                                <strong style="color: var(--success); font-size: 1.1rem;">Total Savings Across Both Trips: $970!</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    ${!appState.user ? `
-                        <div style="text-align: center; margin-top: 2rem;">
-                            <p style="color: var(--gray); margin-bottom: 1rem;">
-                                Want to calculate YOUR specific trip? Sign up free to use our advanced calculator!
-                            </p>
-                            <button class="btn btn-primary" onclick="showAuthModal('signup')">
-                                Sign Up Free - No Credit Card
-                            </button>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        }
-
-        function renderCalculator() {
-            return `
-                <div class="card calculator-section">
-                    <div class="card-header">
-                        <h2 class="card-title">🧮 Vacation Package Builder</h2>
-                    </div>
-                    
-                    <!-- Two-column layout: Inputs on left, Price on right -->
-                    <div style="display: grid; grid-template-columns: 1fr 350px; gap: 2rem; align-items: start;">
-                        <!-- LEFT COLUMN: All inputs -->
-                        <div>
-                            <!-- Trip Details -->
-                            <div class="calculator-grid" style="grid-template-columns: repeat(2, 1fr);">
-                                <div class="input-group">
-                                    <label>Check-In Date</label>
-                                    <input type="date" id="checkIn" onchange="calculatePackage()">
-                                </div>
-                                <div class="input-group">
-                                    <label>Check-Out Date</label>
-                                    <input type="date" id="checkOut" onchange="calculatePackage()">
-                                </div>
-                                <div class="input-group">
-                                    <label>Adults</label>
-                                    <input type="number" id="adults" value="2" min="1" max="10" onchange="calculatePackage()">
-                                </div>
-                                <div class="input-group">
-                                    <label>Children (3-9)</label>
-                                    <input type="number" id="children" value="0" min="0" max="10" onchange="calculatePackage()">
-                                </div>
-                            </div>
-
-                            <!-- Compact Checklist System -->
-                            <div style="margin-top: 1.5rem; display: grid; gap: 1rem;">
-                                
-                                <!-- Hotels - Compact -->
-                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                        <input type="checkbox" id="needsHotel" onchange="calculatePackage()" checked>
-                                        <label style="font-weight: 600; margin: 0;">🏨 Hotel</label>
-                                    </div>
-                                    <select id="hotelType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
-                                        <option value="">Select...</option>
-                                        <optgroup label="Value ($99-145/nt)">
-                                            <option value="99">Endless Summer - $99/nt</option>
-                                            <option value="145">Cabana Bay - $145/nt</option>
-                                            <option value="134">Stella/Terra Nova - $134/nt</option>
-                                        </optgroup>
-                                        <optgroup label="Preferred ($222/nt)">
-                                            <option value="222">Sapphire Falls - $222/nt</option>
-                                        </optgroup>
-                                        <optgroup label="Premier - FREE Express ($386-421/nt)">
-                                            <option value="421">Royal Pacific - $421/nt</option>
-                                            <option value="386">Hard Rock - $386/nt</option>
-                                            <option value="393">Portofino Bay - $393/nt</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-
-                                <!-- Tickets - Compact -->
-                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                                    <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">🎫 Tickets</label>
-                                    <div style="display: grid; gap: 0.5rem;">
-                                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
-                                            <input type="radio" name="ticketType" value="none" onchange="calculatePackage()">
-                                            Already have tickets
-                                        </label>
-                                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
-                                            <input type="radio" name="ticketType" value="tickets" onchange="calculatePackage(); toggleTicketOptions()" checked>
-                                            Buy Day Tickets
-                                        </label>
-                                        <select id="dayTickets" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; margin-left: 1.5rem; font-size: 0.85rem;">
-                                            <option value="349">2-Day - $349</option>
-                                            <option value="379">3-Day - $379</option>
-                                            <option value="409">4-Day - $409</option>
-                                            <option value="435">5-Day - $435</option>
-                                        </select>
-                                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
-                                            <input type="radio" name="ticketType" value="annual" onchange="calculatePackage(); toggleAnnualPassOptions()">
-                                            Buy Annual Passes
-                                        </label>
-                                        <select id="annualPass" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; margin-left: 1.5rem; display: none; font-size: 0.85rem;">
-                                            <option value="">Select...</option>
-                                            <option value="424.99|seasonal|40|0">Seasonal 2-Park - $425 (40% hotels)</option>
-                                            <option value="524.99|seasonal|40|15">Seasonal 3-Park - $525 (40% hotels+food)</option>
-                                            <option value="474.99|power|30|0">Power 2-Park - $475 (30% hotels)</option>
-                                            <option value="584.99|power|30|10">Power 3-Park - $585 (30% hotels+food)</option>
-                                            <option value="629.99|preferred|0|10">Preferred 2-Park - $630 (10% parks)</option>
-                                            <option value="739.99|preferred|0|10">Preferred 3-Park - $740 (10% parks)</option>
-                                            <option value="904.99|premier|0|15">Premier 2-Park - $905 (15%+Express)</option>
-                                            <option value="1094.99|premier|0|15">Premier 3-Park - $1,095 (15%+Express)</option>
-                                        </select>
-                                        <label style="display: flex; align-items: center; gap: 0.5rem; background: #e8f5e9; padding: 0.5rem; border-radius: 6px; font-size: 0.9rem;">
-                                            <input type="checkbox" id="hasExistingPass" onchange="calculatePackage(); toggleExistingPassOptions()">
-                                            Already have Annual Pass
-                                        </label>
-                                        <select id="existingPassType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; margin-left: 1.5rem; display: none; font-size: 0.85rem;">
-                                            <option value="">Select type...</option>
-                                            <option value="seasonal|40|0">Seasonal 2-Park</option>
-                                            <option value="seasonal|40|15">Seasonal 3-Park</option>
-                                            <option value="power|30|0">Power 2-Park</option>
-                                            <option value="power|30|10">Power 3-Park</option>
-                                            <option value="preferred|0|10">Preferred</option>
-                                            <option value="premier|0|15">Premier</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <!-- Express Pass - Compact -->
-                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                        <input type="checkbox" id="needsExpress" onchange="calculatePackage(); toggleExpressOptions()">
-                                        <label style="font-weight: 600; margin: 0;">⚡ Express Pass</label>
-                                    </div>
-                                    <select id="expressType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
-                                        <option value="119">Unlimited - ~$119/day</option>
-                                        <option value="79">After 4pm - ~$79/day</option>
-                                    </select>
-                                </div>
-
-                                <!-- Parking & Car - Compact -->
-                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                        <input type="checkbox" id="needsParking" onchange="calculatePackage(); toggleParkingOptions()">
-                                        <label style="font-weight: 600; margin: 0;">🚗 Parking</label>
-                                    </div>
-                                    <select id="parkingType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
-                                        <option value="30">Standard - $30/day</option>
-                                        <option value="60">Preferred - $60/day</option>
-                                        <option value="100">Prime - $100/day</option>
-                                    </select>
-                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
-                                        <input type="checkbox" id="needsCarRental" onchange="calculatePackage(); toggleCarRentalOptions()">
-                                        <label style="font-weight: 600; margin: 0; font-size: 0.9rem;">Rental Car</label>
-                                    </div>
-                                    <select id="carRentalType" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; margin-top: 0.5rem; font-size: 0.85rem;">
-                                        <option value="245">Economy - $245/wk</option>
-                                        <option value="315">Mid-Size - $315/wk</option>
-                                        <option value="385">SUV - $385/wk</option>
-                                    </select>
-                                </div>
-
-                                <!-- Meals - Compact -->
-                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                        <input type="checkbox" id="needsMeals" onchange="calculatePackage(); toggleMealOptions()">
-                                        <label style="font-weight: 600; margin: 0;">🍔 Meals</label>
-                                    </div>
-                                    <select id="mealsPerDay" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
-                                        <option value="35">1 Meal/day - $35/person</option>
-                                        <option value="70">2 Meals/day - $70/person</option>
-                                        <option value="105">3 Meals/day - $105/person</option>
-                                    </select>
-                                </div>
-
-                                <!-- Souvenirs - Compact -->
-                                <div style="background: var(--light-gray); padding: 1rem; border-radius: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                        <input type="checkbox" id="needsSouvenirs" onchange="calculatePackage(); toggleSouvenirOptions()">
-                                        <label style="font-weight: 600; margin: 0;">🎁 Souvenirs</label>
-                                    </div>
-                                    <select id="souvenirBudget" onchange="calculatePackage()" style="width: 100%; padding: 0.5rem; border: 2px solid var(--border); border-radius: 6px; display: none; font-size: 0.85rem;">
-                                        <option value="50">Modest - $50/person</option>
-                                        <option value="150">Moderate - $150/person</option>
-                                        <option value="300">Generous - $300/person</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- RIGHT COLUMN: Sticky price box -->
-                        <div style="position: sticky; top: 120px;">
-                            <div class="result-box" id="calculatorResult">
-                                <h3>Total Package Price</h3>
-                                <div class="big-price">$0</div>
-                                <div class="savings">Select options to calculate</div>
-                            </div>
-
-                            <div id="savingsBreakdown" style="margin-top: 1rem; display: none;">
-                                <!-- Dynamic savings breakdown -->
-                            </div>
-                            
-                            ${appState.isPremium ? `
-                                <div style="margin-top: 1rem; display: grid; gap: 0.5rem;">
-                                    <button class="btn btn-primary" onclick="savePackageAlert()" style="width: 100%; font-size: 0.9rem; padding: 0.75rem;">
-                                        🔔 Set Price Alert
-                                    </button>
-                                    <button class="btn btn-secondary" onclick="requestExpertReview()" style="width: 100%; font-size: 0.9rem; padding: 0.75rem;">
-                                        💬 Expert Review
-                                    </button>
-                                </div>
-                            ` : `
-                                <div style="margin-top: 1rem; padding: 1rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 8px; border: 2px solid #667eea; text-align: center;">
-                                    <div style="font-weight: 700; color: #667eea; margin-bottom: 0.5rem; font-size: 0.95rem;">Want More?</div>
-                                    <p style="color: var(--gray); margin-bottom: 0.75rem; font-size: 0.85rem;">
-                                        Get price alerts & expert reviews
-                                    </p>
-                                    <button class="btn btn-premium" onclick="showPremiumModal()" style="width: 100%; font-size: 0.9rem; padding: 0.75rem;">
-                                        Upgrade - $7.99/mo
-                                    </button>
-                                </div>
-                            `}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-        function toggleTicketOptions() {
-            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
-            const dayTicketsSelect = document.getElementById('dayTickets');
-            const annualPassSelect = document.getElementById('annualPass');
-            
-            if (dayTicketsSelect) dayTicketsSelect.style.display = ticketType === 'tickets' ? 'block' : 'none';
-            if (annualPassSelect) annualPassSelect.style.display = 'none';
-        }
-
-        function toggleAnnualPassOptions() {
-            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
-            const dayTicketsSelect = document.getElementById('dayTickets');
-            const annualPassSelect = document.getElementById('annualPass');
-            
-            if (annualPassSelect) annualPassSelect.style.display = ticketType === 'annual' ? 'block' : 'none';
-            if (dayTicketsSelect) dayTicketsSelect.style.display = 'none';
-        }
-
-        function toggleExistingPassOptions() {
-            const hasPass = document.getElementById('hasExistingPass')?.checked;
-            const existingPassSelect = document.getElementById('existingPassType');
-            if (existingPassSelect) existingPassSelect.style.display = hasPass ? 'block' : 'none';
-        }
-
-        function toggleExpressOptions() {
-            const needsExpress = document.getElementById('needsExpress')?.checked;
-            const expressSelect = document.getElementById('expressType');
-            if (expressSelect) expressSelect.style.display = needsExpress ? 'block' : 'none';
-        }
-
-        function toggleParkingOptions() {
-            const needsParking = document.getElementById('needsParking')?.checked;
-            const parkingSelect = document.getElementById('parkingType');
-            if (parkingSelect) parkingSelect.style.display = needsParking ? 'block' : 'none';
-        }
-
-        function toggleCarRentalOptions() {
-            const needsCarRental = document.getElementById('needsCarRental')?.checked;
-            const carRentalSelect = document.getElementById('carRentalType');
-            if (carRentalSelect) carRentalSelect.style.display = needsCarRental ? 'block' : 'none';
-        }
-
-        function toggleMealOptions() {
-            const needsMeals = document.getElementById('needsMeals')?.checked;
-            const mealsSelect = document.getElementById('mealsPerDay');
-            if (mealsSelect) mealsSelect.style.display = needsMeals ? 'block' : 'none';
-        }
-
-        function toggleSouvenirOptions() {
-            const needsSouvenirs = document.getElementById('needsSouvenirs')?.checked;
-            const souvenirSelect = document.getElementById('souvenirBudget');
-            if (souvenirSelect) souvenirSelect.style.display = needsSouvenirs ? 'block' : 'none';
+            `).join('');
         }
 
         function renderInsiderTips() {
-            const freeTips = appState.insiderTips.filter(tip => tip.type === 'free');
-            
-            return `
-                <div class="card insider-tips">
-                    <div class="tips-header">
-                        <h2 class="card-title">💡 Money-Saving Strategies (All Free!)</h2>
+            const container = document.getElementById('insiderTips');
+            const tips = appState.insiderTips.slice(0, 10); // Show first 10
+
+            container.innerHTML = tips.map(tip => `
+                <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border-l-4 border-secondary">
+                    <div class="mb-3">
+                        <span class="bg-success text-white px-3 py-1 rounded-full text-xs font-bold">FREE TIP</span>
                     </div>
-                    
-                    ${freeTips.map(tip => `
-                        <div class="tip-card">
-                            <span class="tip-badge free">FREE</span>
-                            <div class="tip-title">${tip.title}</div>
-                            <div class="tip-content">${tip.content}</div>
-                        </div>
-                    `).join('')}
-                    
-                    ${!appState.isPremium ? `
-                        <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 12px; border: 2px solid #667eea; text-align: center;">
-                            <h3 style="font-family: 'Archivo Black', sans-serif; color: #667eea; margin-bottom: 1rem;">
-                                Want Automatic Price Alerts & Expert Reviews?
-                            </h3>
-                            <p style="color: var(--gray); margin-bottom: 1.5rem;">
-                                Upgrade to Premium for 24/7 price monitoring, personalized trip reviews from Universal experts, and extended flexible date searching.
-                            </p>
-                            <button class="btn btn-premium" onclick="showPremiumModal()">
-                                Upgrade to Premium - $7.99/month
-                            </button>
-                        </div>
-                    ` : ''}
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">${tip.title}</h3>
+                    <p class="text-gray-600 leading-relaxed">${tip.content}</p>
                 </div>
-            `;
+            `).join('');
+        }
+
+        function renderDynamicCTAs() {
+            // Hero Stats CTA
+            const heroStats = document.getElementById('heroStats');
+            if (!appState.user) {
+                heroStats.innerHTML = '💰 Average member savings: $847 per trip';
+            }
+
+            // Annual Pass CTA
+            const annualPassCTA = document.getElementById('annualPassCTA');
+            if (!appState.user) {
+                annualPassCTA.innerHTML = `
+                    <div class="bg-gradient-to-r from-primary to-purple-600 p-8 rounded-3xl text-white text-center">
+                        <h3 class="text-2xl font-bold mb-3">Want to Calculate YOUR Specific Trip?</h3>
+                        <p class="mb-6 text-white/90">Sign up free to use our advanced calculator and see your exact savings!</p>
+                        <button onclick="showAuthModal('signup')" class="bg-white hover:bg-gray-100 text-primary px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105">
+                            Sign Up Free - No Credit Card
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Premium Tips CTA
+            const premiumTipsCTA = document.getElementById('premiumTipsCTA');
+            if (!appState.isPremium) {
+                premiumTipsCTA.innerHTML = `
+                    <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-3xl border-2 border-primary/20 text-center">
+                        <h3 class="text-3xl font-black text-gray-900 mb-4">
+                            Want Automatic Price Alerts & Expert Reviews?
+                        </h3>
+                        <p class="text-gray-600 text-lg mb-6 max-w-3xl mx-auto">
+                            Upgrade to Premium for 24/7 price monitoring, personalized trip reviews from Universal experts, and extended flexible date searching.
+                        </p>
+                        <button onclick="showPremiumModal()" class="bg-gradient-to-r from-purple-600 to-primary hover:from-purple-700 hover:to-primary-dark text-white px-10 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-xl">
+                            Upgrade to Premium - $7.99/month
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Calculator CTA
+            const calculatorCTA = document.getElementById('calculatorCTA');
+            if (appState.isPremium) {
+                calculatorCTA.innerHTML = `
+                    <div class="space-y-3">
+                        <button onclick="savePackageAlert()" class="w-full bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full font-bold transition-all">
+                            📧 Set Price Alert
+                        </button>
+                        <button onclick="requestExpertReview()" class="w-full bg-white hover:bg-gray-50 text-primary border-2 border-primary px-6 py-3 rounded-full font-bold transition-all">
+                            💬 Expert Review
+                        </button>
+                    </div>
+                `;
+            } else {
+                calculatorCTA.innerHTML = `
+                    <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-2xl border-2 border-primary/20 text-center">
+                        <div class="font-bold text-primary mb-2">Want More?</div>
+                        <p class="text-gray-600 text-sm mb-4">Get price alerts & expert reviews</p>
+                        <button onclick="showPremiumModal()" class="w-full bg-gradient-to-r from-purple-600 to-primary hover:from-purple-700 hover:to-primary-dark text-white px-6 py-3 rounded-full font-bold transition-all shadow-lg">
+                            Upgrade - $7.99/mo
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Premium trip length options
+            const premiumTripLengths = document.getElementById('premiumTripLengths');
+            if (!appState.isPremium) {
+                premiumTripLengths.innerHTML = `
+                    <div class="bg-yellow-50 border border-yellow-200 px-3 py-2 rounded-xl text-sm text-yellow-800 mt-2">
+                        💡 Upgrade to Premium for 7-10 day trips
+                    </div>
+                `;
+            } else {
+                // Add premium options to select
+                const tripLengthSelect = document.getElementById('tripLength');
+                tripLengthSelect.innerHTML += `
+                    <option value="7">7 Days / 6 Nights ⭐</option>
+                    <option value="8">8 Days / 7 Nights ⭐</option>
+                    <option value="9">9 Days / 8 Nights ⭐</option>
+                    <option value="10">10 Days / 9 Nights ⭐</option>
+                `;
+            }
         }
 
         function calculatePackage() {
@@ -1640,17 +903,24 @@
             const children = parseInt(document.getElementById('children').value) || 0;
             const totalGuests = adults + children;
 
-            if (!checkIn || !checkOut || totalGuests === 0) return;
+            if (!checkIn || !checkOut || totalGuests === 0) {
+                document.getElementById('calculatorResult').innerHTML = `
+                    <div class="text-sm uppercase tracking-wider mb-2 opacity-90">Total Package Price</div>
+                    <div class="text-6xl font-black mb-4">$0</div>
+                    <div class="text-lg opacity-90">Select options to calculate</div>
+                `;
+                return;
+            }
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
             const parkDays = Math.min(nights, 7);
-            const expressDays = nights + 1; // Premier hotel Express Pass is check-in day through check-out day
+            const expressDays = nights + 1;
             
             let totalCost = 0;
             let standardCost = 0;
             let savingsTips = [];
             
-            // Check if user already has a pass (for discount purposes)
+            // Check if user already has a pass
             const hasExistingPass = document.getElementById('hasExistingPass')?.checked;
             let existingPassData = null;
             if (hasExistingPass) {
@@ -1668,7 +938,6 @@
             // HOTELS
             const needsHotel = document.getElementById('needsHotel')?.checked;
             let hotelPrice = 0;
-            let hotelDiscount = 0;
             let annualPassHotelDiscount = 0;
             
             if (needsHotel) {
@@ -1678,7 +947,7 @@
                     let hotelTotal = hotelPrice * nights;
                     standardCost += hotelTotal;
                     
-                    // Check for annual pass discount (either buying new or existing)
+                    // Check for annual pass discount
                     const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
                     let passDiscount = 0;
                     
@@ -1706,7 +975,7 @@
                 }
             }
 
-            // TICKETS & ANNUAL PASSES
+            // TICKETS
             const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
             
             if (ticketType === 'tickets') {
@@ -1725,8 +994,7 @@
                     const passTotal = passPrice * totalGuests;
                     totalCost += passTotal;
                     
-                    // Compare to day tickets
-                    const dayTicketEquivalent = 379 * totalGuests; // 3-day average
+                    const dayTicketEquivalent = 379 * totalGuests;
                     standardCost += dayTicketEquivalent;
                     
                     if (passPrice < dayTicketEquivalent) {
@@ -1737,7 +1005,6 @@
                     }
                 }
             } else if (!hasExistingPass) {
-                // No tickets selected and no existing pass - add standard ticket cost for comparison
                 const dayTicketEquivalent = 379 * totalGuests;
                 standardCost += dayTicketEquivalent;
             }
@@ -1750,45 +1017,23 @@
                 const expressType = document.getElementById('expressType');
                 if (expressType.value) {
                     const expressPrice = parseFloat(expressType.value);
-                    const expressCost = expressPrice * totalGuests * expressDays;
                     
-                    // Check if staying at Premier hotel (gets free Express)
                     if (isPremierHotel) {
                         savingsTips.push({ 
-                            tip: `💡 HACK: Premier hotels include FREE Unlimited Express Pass for ${expressDays} days (check-in through check-out)!`, 
+                            tip: `💡 HACK: Premier hotels include FREE Unlimited Express Pass for ${expressDays} days!`, 
                             savings: 119 * totalGuests * expressDays,
                             isHack: true 
                         });
                     } else {
+                        const expressCost = expressPrice * totalGuests * expressDays;
                         totalCost += expressCost;
                         standardCost += expressCost;
                     }
                 }
             } else if (isPremierHotel) {
-                // Not buying Express but staying at Premier hotel
                 savingsTips.push({ 
                     tip: `✨ Premier hotel includes FREE Unlimited Express Pass for ${expressDays} days`, 
                     savings: 119 * totalGuests * expressDays 
-                });
-            }
-
-            // Check for Premier pass free Express after 4pm
-            if (ticketType === 'annual') {
-                const annualPassSelect = document.getElementById('annualPass');
-                if (annualPassSelect.value) {
-                    const passData = annualPassSelect.value.split('|');
-                    const passType = passData[1];
-                    if (passType === 'premier' && !isPremierHotel) {
-                        savingsTips.push({ 
-                            tip: '🎫 Premier Pass: FREE Express Pass after 4pm', 
-                            savings: 79 * totalGuests * parkDays 
-                        });
-                    }
-                }
-            } else if (existingPassData && existingPassData.type === 'premier' && !isPremierHotel) {
-                savingsTips.push({ 
-                    tip: '🎫 Premier Pass: FREE Express Pass after 4pm', 
-                    savings: 79 * totalGuests * parkDays 
                 });
             }
 
@@ -1841,7 +1086,6 @@
                     let mealsCost = mealPrice * totalGuests * parkDays;
                     const standardMealsCost = mealsCost;
                     
-                    // Apply annual pass food discount
                     let foodDiscount = 0;
                     
                     if (ticketType === 'annual') {
@@ -1877,7 +1121,6 @@
                     let souvTotal = souvenirPrice * totalGuests;
                     standardCost += souvTotal;
                     
-                    // Check for Preferred/Premier pass 10-15% in-park discount
                     let merchDiscount = 0;
                     let passType = null;
                     
@@ -1911,57 +1154,207 @@
                 }
             }
 
-            // Calculate total savings
             const totalSavings = standardCost - totalCost;
 
             // Display result
             const resultBox = document.getElementById('calculatorResult');
             resultBox.innerHTML = `
-                <h3>Total Package Price</h3>
-                <div class="big-price">$${Math.round(totalCost).toLocaleString()}</div>
+                <div class="text-sm uppercase tracking-wider mb-2 opacity-90">Total Package Price</div>
+                <div class="text-6xl font-black mb-4">$${Math.round(totalCost).toLocaleString()}</div>
                 ${totalSavings > 0 ? `
-                    <div class="savings">You're saving $${Math.round(totalSavings).toLocaleString()}! 🎉</div>
-                    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray);">
-                        vs. standard rate of $${Math.round(standardCost).toLocaleString()}
-                    </div>
-                ` : totalCost > 0 ? '<div class="savings">Ready to book?</div>' : '<div class="savings">Select options above to calculate</div>'}
-                <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">
+                    <div class="text-xl opacity-90 mb-2">You're saving $${Math.round(totalSavings).toLocaleString()}! 🎉</div>
+                    <div class="text-sm opacity-75">vs. standard rate of $${Math.round(standardCost).toLocaleString()}</div>
+                ` : totalCost > 0 ? '<div class="text-lg opacity-90">Ready to book?</div>' : '<div class="text-lg opacity-90">Select options to calculate</div>'}
+                <div class="mt-4 text-sm opacity-75">
                     ${nights} nights • ${adults} adults${children > 0 ? ` • ${children} children` : ''} • ${parkDays} park days${isPremierHotel ? ` • ${expressDays} Express Pass days` : ''}
                 </div>
             `;
 
             // Show savings breakdown
+            const breakdownDiv = document.getElementById('savingsBreakdown');
             if (savingsTips.length > 0) {
-                const breakdownDiv = document.getElementById('savingsBreakdown');
-                breakdownDiv.style.display = 'block';
+                breakdownDiv.classList.remove('hidden');
                 breakdownDiv.innerHTML = `
-                    <div style="font-weight: 700; color: var(--primary); margin-bottom: 0.75rem; font-size: 0.95rem;">
-                        💰 Your Savings
-                    </div>
+                    <div class="font-bold text-gray-900 mb-3">💰 Your Savings</div>
                     ${savingsTips.map(tip => `
-                        <div style="background: ${tip.isHack ? 'linear-gradient(135deg, #00C85315, #4CAF5015)' : 'var(--light-gray)'}; padding: 0.75rem; border-radius: 6px; margin-bottom: 0.5rem; border-left: 3px solid ${tip.isHack ? 'var(--success)' : 'var(--primary)'};">
-                            <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">${tip.tip}</div>
-                            <div style="color: var(--success); font-weight: 700; font-size: 1rem;">-$${Math.round(tip.savings)}</div>
+                        <div class="bg-${tip.isHack ? 'gradient-to-r from-success/10 to-green-100 border-l-4 border-success' : 'gray-50'} p-4 rounded-xl mb-2">
+                            <div class="text-sm font-medium text-gray-900 mb-1">${tip.tip}</div>
+                            <div class="text-xl font-black text-success">-$${Math.round(tip.savings)}</div>
                         </div>
                     `).join('')}
                 `;
             } else {
-                const breakdownDiv = document.getElementById('savingsBreakdown');
-                breakdownDiv.style.display = 'none';
+                breakdownDiv.classList.add('hidden');
             }
         }
 
-        // Auth Functions
+        // Toggle functions
+        function toggleTicketOptions() {
+            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+            const dayTicketsSelect = document.getElementById('dayTickets');
+            const annualPassSelect = document.getElementById('annualPass');
+            
+            if (dayTicketsSelect) dayTicketsSelect.classList.toggle('hidden', ticketType !== 'tickets');
+            if (annualPassSelect) annualPassSelect.classList.add('hidden');
+        }
+
+        function toggleAnnualPassOptions() {
+            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+            const dayTicketsSelect = document.getElementById('dayTickets');
+            const annualPassSelect = document.getElementById('annualPass');
+            
+            if (annualPassSelect) annualPassSelect.classList.toggle('hidden', ticketType !== 'annual');
+            if (dayTicketsSelect) dayTicketsSelect.classList.add('hidden');
+        }
+
+        function toggleExistingPassOptions() {
+            const hasPass = document.getElementById('hasExistingPass')?.checked;
+            const existingPassSelect = document.getElementById('existingPassType');
+            if (existingPassSelect) existingPassSelect.classList.toggle('hidden', !hasPass);
+        }
+
+        function toggleExpressOptions() {
+            const needsExpress = document.getElementById('needsExpress')?.checked;
+            const expressSelect = document.getElementById('expressType');
+            if (expressSelect) expressSelect.classList.toggle('hidden', !needsExpress);
+        }
+
+        function toggleParkingOptions() {
+            const needsParking = document.getElementById('needsParking')?.checked;
+            const parkingSelect = document.getElementById('parkingType');
+            if (parkingSelect) parkingSelect.classList.toggle('hidden', !needsParking);
+        }
+
+        function toggleCarRentalOptions() {
+            const needsCarRental = document.getElementById('needsCarRental')?.checked;
+            const carRentalSelect = document.getElementById('carRentalType');
+            if (carRentalSelect) carRentalSelect.classList.toggle('hidden', !needsCarRental);
+        }
+
+        function toggleMealOptions() {
+            const needsMeals = document.getElementById('needsMeals')?.checked;
+            const mealsSelect = document.getElementById('mealsPerDay');
+            if (mealsSelect) mealsSelect.classList.toggle('hidden', !needsMeals);
+        }
+
+        function toggleSouvenirOptions() {
+            const needsSouvenirs = document.getElementById('needsSouvenirs')?.checked;
+            const souvenirSelect = document.getElementById('souvenirBudget');
+            if (souvenirSelect) souvenirSelect.classList.toggle('hidden', !needsSouvenirs);
+        }
+
+        // Optimal Date Finder
+        function findOptimalDates() {
+            const month = document.getElementById('flexMonth').value;
+            
+            if (!month) {
+                alert('Please select a month to search');
+                return;
+            }
+
+            const recommendations = [
+                {
+                    dates: 'Jan 17-19, 2025',
+                    price: '$1,247',
+                    crowdLevel: 2,
+                    waitTime: 12,
+                    timeSavings: '4.5 hours',
+                    savings: '$423',
+                    rating: 'Excellent'
+                },
+                {
+                    dates: 'Jan 15-17, 2025',
+                    price: '$1,289',
+                    crowdLevel: 3,
+                    waitTime: 18,
+                    timeSavings: '3.2 hours',
+                    savings: '$381',
+                    rating: 'Very Good'
+                },
+                {
+                    dates: 'Jan 22-24, 2025',
+                    price: '$1,356',
+                    crowdLevel: 4,
+                    waitTime: 25,
+                    timeSavings: '2.0 hours',
+                    savings: '$314',
+                    rating: 'Good'
+                }
+            ];
+
+            const resultsDiv = document.getElementById('optimalDateResults');
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.innerHTML = `
+                <h3 class="text-2xl font-black text-primary mb-6">🎯 Best Date Options for ${month}</h3>
+                ${recommendations.map((rec, idx) => `
+                    <div class="bg-white p-6 rounded-2xl mb-4 shadow-lg border-l-4 border-${idx === 0 ? 'success' : 'primary'}">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="text-2xl font-bold text-gray-900">${rec.dates}</div>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    Crowd Level: ${rec.crowdLevel}/10 • Avg Wait: ${rec.waitTime} mins
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-black text-primary">${rec.price}</div>
+                                <div class="text-success font-bold">Save ${rec.savings}</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                            <div class="bg-gray-50 p-3 rounded-xl text-center">
+                                <div class="text-xs text-gray-600 mb-1">Time Savings</div>
+                                <div class="text-xl font-bold text-success">${rec.timeSavings}</div>
+                                <div class="text-xs text-gray-600">vs peak days</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-xl text-center">
+                                <div class="text-xs text-gray-600 mb-1">Value Rating</div>
+                                <div class="text-xl font-bold text-${idx === 0 ? 'success' : 'primary'}">${rec.rating}</div>
+                            </div>
+                            ${idx === 0 ? `
+                                <div class="bg-gradient-to-r from-success to-green-600 p-3 rounded-xl text-center text-white">
+                                    <div class="text-xs mb-1 opacity-90">Best Choice</div>
+                                    <div class="text-xl font-bold">⭐ #1</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <button onclick="applyDatesToCalculator('${rec.dates}')" class="w-full bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full font-bold transition-all">
+                            Use These Dates in Calculator
+                        </button>
+                    </div>
+                `).join('')}
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-xl mt-4">
+                    <strong>💡 Time Savings Explained:</strong> Low crowd days let you experience 15-20 attractions vs 8-12 on peak days. This saves 3-5 hours of waiting in lines per day!
+                </div>
+            `;
+        }
+
+        function applyDatesToCalculator(dateString) {
+            alert(`These dates would be applied to your calculator:\n${dateString}\n\nScroll up to see the updated calculator!`);
+        }
+
+        // Affiliate tracking
+        function trackAffiliate(type) {
+            const urls = {
+                hotels: 'https://www.universalorlando.com/web/en/us/hotels',
+                tickets: 'https://www.universalorlando.com/web/en/us/tickets',
+                rentals: 'https://www.rentalcars.com'
+            };
+            
+            alert(`In production, this would redirect to:\n${urls[type]}\n\nWith your affiliate tracking code appended.`);
+            console.log(`Affiliate click tracked: ${type}`);
+        }
+
+        // Auth functions
         function showAuthModal(mode) {
             appState.authMode = mode;
             const modal = document.getElementById('authModal');
             const title = document.getElementById('modalTitle');
             title.textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
-            modal.classList.add('active');
+            modal.classList.remove('hidden');
         }
 
         function closeAuthModal() {
-            document.getElementById('authModal').classList.remove('active');
+            document.getElementById('authModal').classList.add('hidden');
         }
 
         function toggleAuthMode() {
@@ -1978,7 +1371,6 @@
                 return;
             }
 
-            // Simulate authentication
             appState.user = { email };
             closeAuthModal();
             initApp();
@@ -1991,21 +1383,20 @@
             initApp();
         }
 
-        // Premium Functions
+        // Premium functions
         function showPremiumModal() {
             if (!appState.user) {
                 showAuthModal('signup');
                 return;
             }
-            document.getElementById('premiumModal').classList.add('active');
+            document.getElementById('premiumModal').classList.remove('hidden');
         }
 
         function closePremiumModal() {
-            document.getElementById('premiumModal').classList.remove('active');
+            document.getElementById('premiumModal').classList.add('hidden');
         }
 
         function selectPlan(planType) {
-            // In production, this would integrate with Stripe
             alert(`Great choice! The ${planType} plan would redirect to Stripe checkout.\n\nFor this demo, you're now upgraded to Premium!`);
             appState.isPremium = true;
             closePremiumModal();
@@ -2021,44 +1412,23 @@
                 return;
             }
 
-            // In production, this would save to database and set up monitoring
             alert(`✅ Price Alert Set!\n\nWe'll monitor prices for your trip:\n${checkIn} to ${checkOut}\n\nYou'll receive an email notification if:\n• Hotels drop by $20+ per night\n• Tickets drop by $25+ per person\n• Better package deals become available\n\nAlerts sent to: ${appState.user.email}`);
         }
 
         function requestExpertReview() {
             const checkIn = document.getElementById('checkIn').value;
             const checkOut = document.getElementById('checkOut').value;
-            const guests = document.getElementById('guests').value;
             
             if (!checkIn || !checkOut) {
                 alert('Please configure your trip details first');
                 return;
             }
 
-            // In production, this would create a support ticket
-            alert(`📧 Expert Review Requested!\n\nOur Universal Orlando specialists will review your package and email you within 24 hours with:\n\n✓ Personalized money-saving recommendations\n✓ Alternative hotel/ticket combinations\n✓ Dining and touring strategy tips\n✓ Custom day-by-day itinerary\n\nTrip details sent to: ${appState.user.email}\n\nGuests: ${guests}\nDates: ${checkIn} to ${checkOut}`);
+            alert(`📧 Expert Review Requested!\n\nOur Universal Orlando specialists will review your package and email you within 24 hours with:\n\n✓ Personalized money-saving recommendations\n✓ Alternative hotel/ticket combinations\n✓ Dining and touring strategy tips\n✓ Custom day-by-day itinerary\n\nTrip details sent to: ${appState.user.email}`);
         }
 
-        // Initialize on load
+        // Initialize app on page load
         initApp();
-
-        // Set default dates (7 days from now for 4 nights)
-        const today = new Date();
-        const checkIn = new Date(today);
-        checkIn.setDate(checkIn.getDate() + 7);
-        const checkOut = new Date(checkIn);
-        checkOut.setDate(checkOut.getDate() + 4);
-        
-        document.getElementById('checkIn').value = checkIn.toISOString().split('T')[0];
-        document.getElementById('checkOut').value = checkOut.toISOString().split('T')[0];
-        calculatePackage();
-
-        // Initialize price chart if premium user
-        setTimeout(() => {
-            if (appState.isPremium && document.getElementById('priceChart')) {
-                updatePriceChart();
-            }
-        }, 100);
     </script>
 </body>
 </html>
