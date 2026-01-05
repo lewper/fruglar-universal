@@ -569,24 +569,17 @@
         // ============================================
         // SUPABASE CONFIGURATION
         // ============================================
-        // 
-        // SETUP INSTRUCTIONS:
-        // 1. Go to https://supabase.com and create a free account
-        // 2. Create a new project
-        // 3. Go to Project Settings > API
-        // 4. Copy your Project URL and anon/public key
-        // 5. Replace the values below:
         
-        const SUPABASE_URL = 'https://ngxpnbvjqayjngscyqyl.supabase.co'; // Example: https://abcdefgh.supabase.co
-        const SUPABASE_ANON_KEY = 'sb_publishable_YsxEIx7Kew_ISVbBOKJe8w_389mp9b7'; // Your anon/public key
+        const SUPABASE_URL = 'https://ngxpnbvjqayjngscyqyl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5neHBuYnZqcWF5am5nc2N5cXlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2MzI1ODIsImV4cCI6MjA4MzIwODU4Mn0.mvA3StpC9uU6oUKwiawXIjCNf-Pr7_BOcq2whzGm6SE'; // Should start with eyJ and be very long
         
         // Initialize Supabase client
         let supabaseClient = null;
         
         // Check if Supabase is configured
         function isSupabaseConfigured() {
-            return SUPABASE_URL !== 'https://ngxpnbvjqayjngscyqyl.supabase.co' && 
-                   SUPABASE_ANON_KEY !== 'sb_publishable_YsxEIx7Kew_ISVbBOKJe8w_389mp9b7';
+            return SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL' && 
+                   SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY';
         }
         
         // Initialize Supabase
