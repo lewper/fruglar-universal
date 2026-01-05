@@ -6,6 +6,8 @@
     <title>Fruglar | Universal Orlando - Your Smartest Vacation, Your Lowest Price</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -37,14 +39,14 @@
 <body class="bg-gray-50 font-sans antialiased">
     
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white/95 backdrop-blur-md shadow-lg z-50">
+    <nav class="fixed w-full bg-gradient-to-r from-primary to-primary-dark backdrop-blur-md shadow-lg z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex flex-col">
                     <div class="text-3xl font-black">
-                        <span class="text-gray-900">Frug</span><span class="text-accent">lar</span>
+                        <span class="text-white">Frug</span><span class="text-accent">lar</span>
                     </div>
-                    <div class="text-xs font-medium tracking-wider text-gray-600 uppercase">Universal Orlando</div>
+                    <div class="text-xs font-medium tracking-wider text-white/90 uppercase">Universal Orlando</div>
                 </div>
                 <div id="headerActions" class="flex items-center gap-3">
                     <!-- Dynamic content -->
@@ -57,8 +59,15 @@
     <section class="relative h-screen flex items-center justify-center overflow-hidden pt-20">
         <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-purple-900"></div>
         <div class="absolute inset-0 bg-black/30"></div>
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute inset-0 bg-gradient-to-r from-accent/20 to-secondary/20 animate-pulse"></div>
+        
+        <!-- Left Theme Park Image -->
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1/4 h-96 hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600&h=800&fit=crop" alt="Universal Studios" class="w-full h-full object-cover opacity-30 rounded-r-3xl shadow-2xl">
+        </div>
+        
+        <!-- Right Theme Park Image -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/4 h-96 hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1509600110300-21b9d5fedeb7?w=600&h=800&fit=crop" alt="Theme Park Ride" class="w-full h-full object-cover opacity-30 rounded-l-3xl shadow-2xl">
         </div>
         
         <div class="container relative z-20 text-center px-4 mx-auto">
@@ -78,33 +87,6 @@
             </div>
             <div id="heroStats" class="inline-block bg-gradient-to-r from-success to-green-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-2xl">
                 💰 Average member savings: $847 per trip
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Booking CTAs -->
-    <section class="py-16 bg-gradient-to-r from-secondary via-orange-600 to-secondary -mt-20 relative z-10">
-        <div class="container px-4 mx-auto">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl md:text-4xl font-black text-white mb-3">Ready to Book Your Trip?</h2>
-                <p class="text-white/90 text-lg">Use our trusted partners to lock in the best prices</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <button onclick="trackAffiliate('hotels')" class="bg-white hover:bg-accent text-gray-900 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group">
-                    <div class="text-5xl mb-3">🏨</div>
-                    <div class="font-bold text-xl mb-1">Book Hotels</div>
-                    <div class="text-sm text-gray-600">Universal & Partner Properties</div>
-                </button>
-                <button onclick="trackAffiliate('tickets')" class="bg-white hover:bg-accent text-gray-900 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group">
-                    <div class="text-5xl mb-3">🎫</div>
-                    <div class="font-bold text-xl mb-1">Get Tickets</div>
-                    <div class="text-sm text-gray-600">Best Price Guarantee</div>
-                </button>
-                <button onclick="trackAffiliate('rentals')" class="bg-white hover:bg-accent text-gray-900 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group">
-                    <div class="text-5xl mb-3">🚗</div>
-                    <div class="font-bold text-xl mb-1">Rent a Car</div>
-                    <div class="text-sm text-gray-600">Compare All Major Brands</div>
-                </button>
             </div>
         </div>
     </section>
@@ -225,13 +207,13 @@
         </div>
     </section>
 
-    <!-- Optimal Date Finder -->
+    <!-- Crowd Tracker -->
     <section class="py-20 bg-white">
         <div class="container px-4 mx-auto max-w-7xl">
             <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 md:p-12 rounded-3xl shadow-xl border-2 border-primary/20">
                 <div class="flex justify-between items-start mb-8">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">📅 Optimal Date Finder</h2>
+                        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">📅 Crowd Tracker</h2>
                         <p class="text-gray-600 text-lg">Find the cheapest window with lowest crowds</p>
                     </div>
                     <span class="bg-success text-white px-4 py-2 rounded-full text-sm font-bold">FREE</span>
@@ -257,8 +239,11 @@
                             <option value="4">4 Days / 3 Nights</option>
                             <option value="5">5 Days / 4 Nights</option>
                             <option value="6">6 Days / 5 Nights</option>
+                            <option value="7">7 Days / 6 Nights</option>
+                            <option value="8">8 Days / 7 Nights</option>
+                            <option value="9">9 Days / 8 Nights</option>
+                            <option value="10">10 Days / 9 Nights</option>
                         </select>
-                        <div id="premiumTripLengths"></div>
                     </div>
                     <div>
                         <label class="block font-bold text-gray-900 mb-2">Priority</label>
@@ -473,11 +458,11 @@
         <div class="container px-4 mx-auto max-w-7xl">
             <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">💡 Money-Saving Strategies</h2>
-                <p class="text-xl text-gray-600">All tips are completely free - no signup required!</p>
+                <p class="text-xl text-gray-600">Free for all members - sign up to unlock!</p>
             </div>
             
-            <div id="insiderTips" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Tips will be populated by JavaScript -->
+            <div id="insiderTipsContainer">
+                <!-- Tips or signup wall will be populated by JavaScript -->
             </div>
 
             <div id="premiumTipsCTA" class="mt-12">
@@ -540,15 +525,8 @@
                 <div class="flex items-start gap-3">
                     <div class="bg-success/10 text-success p-2 rounded-lg mt-1">✓</div>
                     <div>
-                        <div class="font-bold text-gray-900">💬 Expert Trip Reviews</div>
-                        <div class="text-gray-600 text-sm">Submit your package and get personalized recommendations within 24 hours</div>
-                    </div>
-                </div>
-                <div class="flex items-start gap-3">
-                    <div class="bg-success/10 text-success p-2 rounded-lg mt-1">✓</div>
-                    <div>
-                        <div class="font-bold text-gray-900">📅 Extended Flexible Date Finder</div>
-                        <div class="text-gray-600 text-sm">Find optimal dates for trips 7+ days long with advanced filtering</div>
+                        <div class="font-bold text-gray-900">💬 Expert Trip Reviews & Booking Assistance</div>
+                        <div class="text-gray-600 text-sm">Submit your package and get personalized recommendations and booking assistance from our Universal experts within 24 hours</div>
                     </div>
                 </div>
                 <div class="flex items-start gap-3">
@@ -588,6 +566,287 @@
     </div>
 
     <script>
+        // ============================================
+        // SUPABASE CONFIGURATION
+        // ============================================
+        // 
+        // SETUP INSTRUCTIONS:
+        // 1. Go to https://supabase.com and create a free account
+        // 2. Create a new project
+        // 3. Go to Project Settings > API
+        // 4. Copy your Project URL and anon/public key
+        // 5. Replace the values below:
+        
+        const SUPABASE_URL = 'https://ngxpnbvjqayjngscyqyl.supabase.co'; // Example: https://abcdefgh.supabase.co
+        const SUPABASE_ANON_KEY = 'sb_publishable_YsxEIx7Kew_ISVbBOKJe8w_389mp9b7'; // Your anon/public key
+        
+        // Initialize Supabase client
+        let supabase = null;
+        
+        // Check if Supabase is configured
+        function isSupabaseConfigured() {
+            return SUPABASE_URL !== 'https://ngxpnbvjqayjngscyqyl.supabase.co' && 
+                   SUPABASE_ANON_KEY !== 'sb_publishable_YsxEIx7Kew_ISVbBOKJe8w_389mp9b7';
+        }
+        
+        // Initialize Supabase
+        if (isSupabaseConfigured() && window.supabase) {
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('✅ Supabase initialized');
+        } else if (!isSupabaseConfigured()) {
+            console.warn('⚠️ Supabase not configured. Using demo mode. See setup instructions above.');
+        }
+        
+        // ============================================
+        // AUTHENTICATION FUNCTIONS
+        // ============================================
+        
+        // Check for existing session on page load
+        async function checkExistingSession() {
+            if (!supabase) return null;
+            
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                return session;
+            } catch (error) {
+                console.error('Error checking session:', error);
+                return null;
+            }
+        }
+        
+        // Load user profile from database
+        async function loadUserProfile(userId) {
+            if (!supabase) return null;
+            
+            try {
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', userId)
+                    .single();
+                
+                if (error) throw error;
+                return data;
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                return null;
+            }
+        }
+        
+        // Sign up new user
+        async function signUpUser(email, password) {
+            if (!supabase) {
+                // Demo mode
+                return {
+                    success: true,
+                    message: 'Demo mode: Account created! (Configure Supabase for real authentication)',
+                    user: { id: 'demo-' + Date.now(), email }
+                };
+            }
+            
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
+                
+                // Check if email confirmation required
+                if (data.user && data.user.identities && data.user.identities.length === 0) {
+                    return {
+                        success: true,
+                        requiresConfirmation: true,
+                        message: 'Please check your email to confirm your account!'
+                    };
+                }
+                
+                return {
+                    success: true,
+                    message: 'Account created successfully!',
+                    user: data.user
+                };
+            } catch (error) {
+                console.error('Signup error:', error);
+                return {
+                    success: false,
+                    message: error.message
+                };
+            }
+        }
+        
+        // Sign in user
+        async function signInUser(email, password) {
+            if (!supabase) {
+                // Demo mode
+                return {
+                    success: true,
+                    message: 'Demo mode: Signed in! (Configure Supabase for real authentication)',
+                    user: { id: 'demo-' + Date.now(), email }
+                };
+            }
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
+                
+                return {
+                    success: true,
+                    message: 'Signed in successfully!',
+                    user: data.user
+                };
+            } catch (error) {
+                console.error('Signin error:', error);
+                return {
+                    success: false,
+                    message: error.message
+                };
+            }
+        }
+        
+        // Sign out user
+        async function signOutUser() {
+            if (!supabase) {
+                // Demo mode
+                return { success: true };
+            }
+            
+            try {
+                const { error } = await supabase.auth.signOut();
+                if (error) throw error;
+                return { success: true };
+            } catch (error) {
+                console.error('Signout error:', error);
+                return { success: false, message: error.message };
+            }
+        }
+        
+        // Save package to database
+        async function savePackageToDatabase(packageData) {
+            if (!supabase) {
+                console.log('Demo mode: Package would be saved', packageData);
+                return { success: true, message: 'Package saved (demo mode)' };
+            }
+            
+            if (!appState.user) {
+                return { success: false, message: 'Please sign in to save packages' };
+            }
+            
+            try {
+                const { data, error } = await supabase
+                    .from('saved_packages')
+                    .insert({
+                        user_id: appState.user.id,
+                        package_name: packageData.name || `Trip ${new Date().toLocaleDateString()}`,
+                        check_in: packageData.checkIn,
+                        check_out: packageData.checkOut,
+                        adults: packageData.adults,
+                        children: packageData.children,
+                        total_cost: packageData.totalCost,
+                        total_savings: packageData.totalSavings,
+                        package_data: packageData
+                    })
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                
+                return {
+                    success: true,
+                    data: data,
+                    message: 'Package saved successfully!'
+                };
+            } catch (error) {
+                console.error('Error saving package:', error);
+                return {
+                    success: false,
+                    message: error.message
+                };
+            }
+        }
+        
+        // Create price alert (premium feature)
+        async function createPriceAlert(packageId, threshold = 20.00) {
+            if (!supabase) {
+                console.log('Demo mode: Price alert would be created');
+                return { success: true, message: 'Price alert set (demo mode)' };
+            }
+            
+            if (!appState.user) {
+                return { success: false, message: 'Please sign in' };
+            }
+            
+            if (!appState.isPremium) {
+                return { success: false, requiresUpgrade: true };
+            }
+            
+            try {
+                const { data, error } = await supabase
+                    .from('price_alerts')
+                    .insert({
+                        user_id: appState.user.id,
+                        package_id: packageId,
+                        alert_threshold: threshold,
+                        is_active: true
+                    })
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                
+                return {
+                    success: true,
+                    data: data,
+                    message: 'Price alert created!'
+                };
+            } catch (error) {
+                console.error('Error creating alert:', error);
+                return {
+                    success: false,
+                    message: error.message
+                };
+            }
+        }
+        
+        // Listen for auth state changes
+        if (supabase) {
+            supabase.auth.onAuthStateChange(async (event, session) => {
+                console.log('Auth event:', event);
+                
+                if (event === 'SIGNED_IN' && session) {
+                    appState.user = {
+                        id: session.user.id,
+                        email: session.user.email
+                    };
+                    
+                    // Load profile
+                    const profile = await loadUserProfile(session.user.id);
+                    if (profile) {
+                        appState.isPremium = profile.is_premium || false;
+                        
+                        // Check if premium expired
+                        if (profile.premium_expires_at) {
+                            const expiresAt = new Date(profile.premium_expires_at);
+                            if (expiresAt < new Date()) {
+                                appState.isPremium = false;
+                            }
+                        }
+                    }
+                    
+                    initApp();
+                } else if (event === 'SIGNED_OUT') {
+                    appState.user = null;
+                    appState.isPremium = false;
+                    initApp();
+                }
+            });
+        }
+        
+        // ============================================
         // App State
         let appState = {
             user: null,
@@ -729,7 +988,32 @@
         };
 
         // Initialize App
-        function initApp() {
+        async function initApp() {
+            // Check for existing session on page load
+            if (supabase && !appState.user) {
+                const session = await checkExistingSession();
+                if (session) {
+                    appState.user = {
+                        id: session.user.id,
+                        email: session.user.email
+                    };
+                    
+                    // Load profile
+                    const profile = await loadUserProfile(session.user.id);
+                    if (profile) {
+                        appState.isPremium = profile.is_premium || false;
+                        
+                        // Check if premium expired
+                        if (profile.premium_expires_at) {
+                            const expiresAt = new Date(profile.premium_expires_at);
+                            if (expiresAt < new Date()) {
+                                appState.isPremium = false;
+                            }
+                        }
+                    }
+                }
+            }
+            
             renderHeader();
             renderPriceTracking();
             renderInsiderTips();
@@ -769,9 +1053,9 @@
         function renderPriceTracking() {
             const container = document.getElementById('priceTracking');
             const categories = [
-                { title: '🏨 Hotels', data: appState.prices.hotels, trend: 'down' },
-                { title: '🎫 Tickets', data: appState.prices.tickets, trend: 'down' },
-                { title: '🚗 Rentals', data: appState.prices.rentals, trend: 'stable' }
+                { title: '🏨 Hotels', data: appState.prices.hotels, trend: 'down', link: 'hotels' },
+                { title: '🎫 Tickets', data: appState.prices.tickets, trend: 'down', link: 'tickets' },
+                { title: '🚗 Rentals', data: appState.prices.rentals, trend: 'stable', link: 'rentals' }
             ];
 
             container.innerHTML = categories.map(cat => `
@@ -782,7 +1066,7 @@
                             ${cat.trend === 'down' ? '↓ Trending Down' : cat.trend === 'up' ? '↑ Trending Up' : '→ Stable'}
                         </div>
                     </div>
-                    <div class="space-y-3">
+                    <div class="space-y-3 mb-6">
                         ${cat.data.map(item => `
                             <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
                                 <span class="font-medium text-gray-900">${item.name}</span>
@@ -793,23 +1077,108 @@
                             </div>
                         `).join('')}
                     </div>
+                    <button onclick="trackAffiliate('${cat.link}')" class="w-full bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full font-bold transition-all transform hover:scale-105">
+                        View ${cat.title.split(' ')[1]} Deals
+                    </button>
                 </div>
             `).join('');
         }
 
         function renderInsiderTips() {
-            const container = document.getElementById('insiderTips');
-            const tips = appState.insiderTips.slice(0, 10); // Show first 10
-
-            container.innerHTML = tips.map(tip => `
-                <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border-l-4 border-secondary">
-                    <div class="mb-3">
-                        <span class="bg-success text-white px-3 py-1 rounded-full text-xs font-bold">FREE TIP</span>
+            const container = document.getElementById('insiderTipsContainer');
+            
+            if (!appState.user) {
+                // Show signup wall for non-members
+                container.innerHTML = `
+                    <div class="relative">
+                        <!-- Blurred preview tips -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 blur-sm pointer-events-none">
+                            <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg border-l-4 border-secondary">
+                                <div class="mb-3">
+                                    <span class="bg-success text-white px-3 py-1 rounded-full text-xs font-bold">FREE TIP</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Book Weekday Visits for 40% Lower Prices</h3>
+                                <p class="text-gray-600 leading-relaxed">Monday-Thursday visits can save you $50-100 per night on hotels...</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg border-l-4 border-secondary">
+                                <div class="mb-3">
+                                    <span class="bg-success text-white px-3 py-1 rounded-full text-xs font-bold">FREE TIP</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Value Resort + 1 Premier Night Strategy</h3>
+                                <p class="text-gray-600 leading-relaxed">Stay at a value resort for most nights, but book ONE night...</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg border-l-4 border-secondary">
+                                <div class="mb-3">
+                                    <span class="bg-success text-white px-3 py-1 rounded-full text-xs font-bold">FREE TIP</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Seasonal Pass Discount Hack</h3>
+                                <p class="text-gray-600 leading-relaxed">Buy Seasonal passes ($304) to unlock 40% off hotels...</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg border-l-4 border-secondary">
+                                <div class="mb-3">
+                                    <span class="bg-success text-white px-3 py-1 rounded-full text-xs font-bold">FREE TIP</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Free Locker Hack at Both Parks</h3>
+                                <p class="text-gray-600 leading-relaxed">Standard lockers at rides are free for the first 60-90 minutes...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Signup overlay -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-2xl mx-4 text-center border-4 border-primary">
+                                <div class="text-6xl mb-6">🔒</div>
+                                <h3 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+                                    Unlock 23 Money-Saving Tips
+                                </h3>
+                                <p class="text-xl text-gray-600 mb-6">
+                                    Get instant access to all our insider strategies when you create a free account. No credit card required!
+                                </p>
+                                <ul class="text-left mb-8 space-y-3 max-w-xl mx-auto">
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-success text-2xl">✓</span>
+                                        <span class="text-gray-700"><strong>23 free insider tips</strong> that save hundreds per trip</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-success text-2xl">✓</span>
+                                        <span class="text-gray-700"><strong>Advanced package calculator</strong> with all options</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-success text-2xl">✓</span>
+                                        <span class="text-gray-700"><strong>Crowd tracker</strong> to find the best dates</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-success text-2xl">✓</span>
+                                        <span class="text-gray-700"><strong>No spam</strong> - we respect your inbox</span>
+                                    </li>
+                                </ul>
+                                <button onclick="showAuthModal('signup')" class="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-purple-900 text-white px-12 py-5 rounded-full font-black text-xl transition-all transform hover:scale-105 shadow-2xl mb-4">
+                                    Sign Up Free - Unlock All Tips
+                                </button>
+                                <p class="text-sm text-gray-500">
+                                    Already have an account? <a href="#" onclick="showAuthModal('signin')" class="text-primary font-bold hover:underline">Sign In</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">${tip.title}</h3>
-                    <p class="text-gray-600 leading-relaxed">${tip.content}</p>
+                `;
+                return;
+            }
+            
+            // Show tips for members
+            const tips = appState.insiderTips.slice(0, 10);
+            container.innerHTML = `
+                <div id="insiderTips" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    ${tips.map(tip => `
+                        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border-l-4 border-secondary">
+                            <div class="mb-3">
+                                <span class="bg-success text-white px-3 py-1 rounded-full text-xs font-bold">FREE TIP</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">${tip.title}</h3>
+                            <p class="text-gray-600 leading-relaxed">${tip.content}</p>
+                        </div>
+                    `).join('')}
                 </div>
-            `).join('');
+            `;
         }
 
         function renderDynamicCTAs() {
@@ -860,7 +1229,7 @@
                             📧 Set Price Alert
                         </button>
                         <button onclick="requestExpertReview()" class="w-full bg-white hover:bg-gray-50 text-primary border-2 border-primary px-6 py-3 rounded-full font-bold transition-all">
-                            💬 Expert Review
+                            💬 Expert Review & Booking Assistance
                         </button>
                     </div>
                 `;
@@ -873,25 +1242,6 @@
                             Upgrade - $7.99/mo
                         </button>
                     </div>
-                `;
-            }
-
-            // Premium trip length options
-            const premiumTripLengths = document.getElementById('premiumTripLengths');
-            if (!appState.isPremium) {
-                premiumTripLengths.innerHTML = `
-                    <div class="bg-yellow-50 border border-yellow-200 px-3 py-2 rounded-xl text-sm text-yellow-800 mt-2">
-                        💡 Upgrade to Premium for 7-10 day trips
-                    </div>
-                `;
-            } else {
-                // Add premium options to select
-                const tripLengthSelect = document.getElementById('tripLength');
-                tripLengthSelect.innerHTML += `
-                    <option value="7">7 Days / 6 Nights ⭐</option>
-                    <option value="8">8 Days / 7 Nights ⭐</option>
-                    <option value="9">9 Days / 8 Nights ⭐</option>
-                    <option value="10">10 Days / 9 Nights ⭐</option>
                 `;
             }
         }
@@ -913,6 +1263,21 @@
             }
 
             const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
+            
+            // Limit to 3 days for non-members
+            if (!appState.user && nights > 3) {
+                document.getElementById('calculatorResult').innerHTML = `
+                    <div class="text-sm uppercase tracking-wider mb-2 opacity-90">Sign Up Required</div>
+                    <div class="text-3xl font-black mb-4 leading-tight">🔒 Unlock Longer Trips</div>
+                    <div class="text-base opacity-90 mb-6">Free accounts can calculate packages up to 7+ days</div>
+                    <button onclick="showAuthModal('signup')" class="w-full bg-white hover:bg-accent text-primary hover:text-gray-900 px-6 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
+                        Sign Up Free
+                    </button>
+                    <div class="text-xs mt-3 opacity-75">No credit card required</div>
+                `;
+                return;
+            }
+            
             const parkDays = Math.min(nights, 7);
             const expressDays = nights + 1;
             
@@ -1168,6 +1533,14 @@
                 <div class="mt-4 text-sm opacity-75">
                     ${nights} nights • ${adults} adults${children > 0 ? ` • ${children} children` : ''} • ${parkDays} park days${isPremierHotel ? ` • ${expressDays} Express Pass days` : ''}
                 </div>
+                ${totalCost > 0 ? `
+                    <div class="mt-6 pt-6 border-t border-white/20">
+                        <button onclick="bookPackage()" class="w-full bg-white hover:bg-accent text-primary hover:text-gray-900 px-6 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
+                            🎫 Book This Package
+                        </button>
+                        <div class="text-xs mt-3 opacity-75">You'll be directed to Universal Orlando to complete your booking</div>
+                    </div>
+                ` : ''}
             `;
 
             // Show savings breakdown
@@ -1344,6 +1717,43 @@
             console.log(`Affiliate click tracked: ${type}`);
         }
 
+        function bookPackage() {
+            const checkIn = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
+            const hotelType = document.getElementById('hotelType').value;
+            const needsHotel = document.getElementById('needsHotel')?.checked;
+            const ticketType = document.querySelector('input[name="ticketType"]:checked')?.value;
+            
+            // Determine where to direct the user based on what they need
+            let bookingUrl = 'https://www.universalorlando.com/web/en/us';
+            let bookingType = 'Full Package';
+            
+            if (needsHotel && hotelType) {
+                bookingUrl = 'https://www.universalorlando.com/web/en/us/hotels';
+                bookingType = 'Hotel + Tickets';
+            } else if (ticketType === 'tickets' || ticketType === 'annual') {
+                bookingUrl = 'https://www.universalorlando.com/web/en/us/tickets';
+                bookingType = 'Tickets Only';
+            }
+            
+            // In production, this would:
+            // 1. Track the booking intent with affiliate parameters
+            // 2. Pre-populate dates and selections where possible
+            // 3. Redirect to the appropriate Universal Orlando booking page
+            alert(`📋 Booking Package\n\nDates: ${checkIn} to ${checkOut}\nType: ${bookingType}\n\nIn production, you would be redirected to:\n${bookingUrl}\n\nWith your configuration pre-filled and our affiliate tracking code.`);
+            
+            console.log('Package booking tracked:', {
+                checkIn,
+                checkOut,
+                hotelType,
+                ticketType,
+                bookingUrl
+            });
+            
+            // Uncomment in production:
+            // window.open(bookingUrl + '?affiliate=fruglar&dates=' + checkIn + '...' , '_blank');
+        }
+
         // Auth functions
         function showAuthModal(mode) {
             appState.authMode = mode;
@@ -1362,25 +1772,60 @@
             showAuthModal(appState.authMode);
         }
 
-        function handleAuth() {
+        async function handleAuth() {
             const email = document.getElementById('authEmail').value;
             const password = document.getElementById('authPassword').value;
+            const mode = appState.authMode;
 
             if (!email || !password) {
                 alert('Please fill in all fields');
                 return;
             }
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
+                return;
+            }
 
-            appState.user = { email };
-            closeAuthModal();
-            initApp();
-            alert(`Welcome! You're now signed in as ${email}`);
+            let result;
+            if (mode === 'signup') {
+                result = await signUpUser(email, password);
+            } else {
+                result = await signInUser(email, password);
+            }
+            
+            if (result.success) {
+                if (result.requiresConfirmation) {
+                    alert(result.message);
+                    closeAuthModal();
+                } else {
+                    appState.user = result.user || { email };
+                    
+                    // Load profile if using real Supabase
+                    if (supabase && result.user) {
+                        const profile = await loadUserProfile(result.user.id);
+                        if (profile) {
+                            appState.isPremium = profile.is_premium || false;
+                        }
+                    }
+                    
+                    closeAuthModal();
+                    initApp();
+                    alert(result.message);
+                }
+            } else {
+                alert('Error: ' + result.message);
+            }
         }
 
-        function logout() {
-            appState.user = null;
-            appState.isPremium = false;
-            initApp();
+        async function logout() {
+            const result = await signOutUser();
+            
+            if (result.success) {
+                appState.user = null;
+                appState.isPremium = false;
+                initApp();
+            }
         }
 
         // Premium functions
@@ -1403,16 +1848,56 @@
             initApp();
         }
 
-        function savePackageAlert() {
+        async function savePackageAlert() {
+            if (!appState.user) {
+                alert('Please sign in first');
+                showAuthModal('signin');
+                return;
+            }
+            
+            if (!appState.isPremium) {
+                showPremiumModal();
+                return;
+            }
+            
             const checkIn = document.getElementById('checkIn').value;
             const checkOut = document.getElementById('checkOut').value;
+            const adults = parseInt(document.getElementById('adults').value) || 0;
+            const children = parseInt(document.getElementById('children').value) || 0;
             
             if (!checkIn || !checkOut) {
                 alert('Please configure your trip dates first');
                 return;
             }
-
-            alert(`✅ Price Alert Set!\n\nWe'll monitor prices for your trip:\n${checkIn} to ${checkOut}\n\nYou'll receive an email notification if:\n• Hotels drop by $20+ per night\n• Tickets drop by $25+ per person\n• Better package deals become available\n\nAlerts sent to: ${appState.user.email}`);
+            
+            // Gather package data
+            const packageData = {
+                name: `Trip ${checkIn} to ${checkOut}`,
+                checkIn,
+                checkOut,
+                adults,
+                children,
+                totalCost: 0, // Would be calculated from form
+                totalSavings: 0 // Would be calculated from form
+            };
+            
+            // Save package first
+            const saveResult = await savePackageToDatabase(packageData);
+            
+            if (saveResult.success && saveResult.data) {
+                // Create price alert
+                const alertResult = await createPriceAlert(saveResult.data.id, 20.00);
+                
+                if (alertResult.success) {
+                    alert(`✅ Price Alert Set!\n\nWe'll monitor prices for your trip:\n${checkIn} to ${checkOut}\n\nYou'll receive an email notification if:\n• Hotels drop by $20+ per night\n• Tickets drop by $25+ per person\n• Better package deals become available\n\nAlerts sent to: ${appState.user.email}`);
+                } else if (alertResult.requiresUpgrade) {
+                    showPremiumModal();
+                } else {
+                    alert('Error setting price alert: ' + alertResult.message);
+                }
+            } else {
+                alert('Error saving package: ' + saveResult.message);
+            }
         }
 
         function requestExpertReview() {
@@ -1424,7 +1909,7 @@
                 return;
             }
 
-            alert(`📧 Expert Review Requested!\n\nOur Universal Orlando specialists will review your package and email you within 24 hours with:\n\n✓ Personalized money-saving recommendations\n✓ Alternative hotel/ticket combinations\n✓ Dining and touring strategy tips\n✓ Custom day-by-day itinerary\n\nTrip details sent to: ${appState.user.email}`);
+            alert(`📧 Expert Review & Booking Assistance Requested!\n\nOur Universal Orlando specialists will review your package and email you within 24 hours with:\n\n✓ Personalized money-saving recommendations\n✓ Alternative hotel/ticket combinations\n✓ Dining and touring strategy tips\n✓ Custom day-by-day itinerary\n✓ Booking assistance and support\n\nTrip details sent to: ${appState.user.email}`);
         }
 
         // Initialize app on page load
