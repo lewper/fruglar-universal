@@ -581,7 +581,7 @@
         const SUPABASE_ANON_KEY = 'sb_publishable_YsxEIx7Kew_ISVbBOKJe8w_389mp9b7'; // Your anon/public key
         
         // Initialize Supabase client
-        let supabase = null;
+        let supabaseClient = null;
         
         // Check if Supabase is configured
         function isSupabaseConfigured() {
@@ -591,7 +591,7 @@
         
         // Initialize Supabase
         if (isSupabaseConfigured() && window.supabase) {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             console.log('✅ Supabase initialized');
         } else if (!isSupabaseConfigured()) {
             console.warn('⚠️ Supabase not configured. Using demo mode. See setup instructions above.');
@@ -603,10 +603,10 @@
         
         // Check for existing session on page load
         async function checkExistingSession() {
-            if (!supabase) return null;
+            if (!supabaseClient) return null;
             
             try {
-                const { data: { session } } = await supabase.auth.getSession();
+                const { data: { session } } = await supabaseClient.auth.getSession();
                 return session;
             } catch (error) {
                 console.error('Error checking session:', error);
@@ -616,10 +616,10 @@
         
         // Load user profile from database
         async function loadUserProfile(userId) {
-            if (!supabase) return null;
+            if (!supabaseClient) return null;
             
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('profiles')
                     .select('*')
                     .eq('id', userId)
@@ -635,7 +635,7 @@
         
         // Sign up new user
         async function signUpUser(email, password) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 // Demo mode
                 return {
                     success: true,
@@ -645,7 +645,7 @@
             }
             
             try {
-                const { data, error } = await supabase.auth.signUp({
+                const { data, error } = await supabaseClient.auth.signUp({
                     email: email,
                     password: password
                 });
@@ -677,7 +677,7 @@
         
         // Sign in user
         async function signInUser(email, password) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 // Demo mode
                 return {
                     success: true,
@@ -687,7 +687,7 @@
             }
             
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
@@ -710,13 +710,13 @@
         
         // Sign out user
         async function signOutUser() {
-            if (!supabase) {
+            if (!supabaseClient) {
                 // Demo mode
                 return { success: true };
             }
             
             try {
-                const { error } = await supabase.auth.signOut();
+                const { error } = await supabaseClient.auth.signOut();
                 if (error) throw error;
                 return { success: true };
             } catch (error) {
@@ -727,7 +727,7 @@
         
         // Save package to database
         async function savePackageToDatabase(packageData) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 console.log('Demo mode: Package would be saved', packageData);
                 return { success: true, message: 'Package saved (demo mode)' };
             }
@@ -737,7 +737,7 @@
             }
             
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('saved_packages')
                     .insert({
                         user_id: appState.user.id,
@@ -771,7 +771,7 @@
         
         // Create price alert (premium feature)
         async function createPriceAlert(packageId, threshold = 20.00) {
-            if (!supabase) {
+            if (!supabaseClient) {
                 console.log('Demo mode: Price alert would be created');
                 return { success: true, message: 'Price alert set (demo mode)' };
             }
@@ -785,7 +785,7 @@
             }
             
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('price_alerts')
                     .insert({
                         user_id: appState.user.id,
@@ -813,8 +813,8 @@
         }
         
         // Listen for auth state changes
-        if (supabase) {
-            supabase.auth.onAuthStateChange(async (event, session) => {
+        if (supabaseClient) {
+            supabaseClient.auth.onAuthStateChange(async (event, session) => {
                 console.log('Auth event:', event);
                 
                 if (event === 'SIGNED_IN' && session) {
